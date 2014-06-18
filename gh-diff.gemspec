@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'gh/diff/version'
+require 'gh-diff/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "gh-diff"
-  spec.version       = Gh::Diff::VERSION
+  spec.version       = GhDiff::VERSION
   spec.authors       = ["kyoendo"]
   spec.email         = ["postagie@gmail.com"]
   spec.summary       = %q{TODO: Write a short summary. Required.}

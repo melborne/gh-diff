@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'gh/diff'
+require 'gh-diff'
+
+GhDiff::CLI.start(ARGV)

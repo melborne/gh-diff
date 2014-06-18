@@ -1,4 +1,4 @@
-# Gh::Diff
+# Gh-Diff
 
 TODO: Write a gem description
 
