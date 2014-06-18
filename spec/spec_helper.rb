@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'gh-diff'
+require "stringio"
 
 module Helpers
   def source_root
