@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'gh-diff'
 require "stringio"
-# require "fakeweb"
+require "fileutils"
 require "webmock"
 require "vcr"
 
