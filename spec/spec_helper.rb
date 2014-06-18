@@ -1,6 +1,9 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'gh-diff'
 require "stringio"
+# require "fakeweb"
+require "webmock"
+require "vcr"
 
 module Helpers
   def source_root
@@ -8,11 +11,14 @@ module Helpers
   end
 end
 
+Resource = Struct.new(:content, :sha, :path, :url)
+
 RSpec.configure do |c|
   c.include Helpers
-  c.before do
-    # FakeWeb.clean_registry
-    # body = File.read(File.join(source_root, 'quickstart.md'))
-    # FakeWeb.register_uri(:get, %r(https://api\.github\.com), body:body)
-  end
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
 end
