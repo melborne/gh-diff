@@ -13,7 +13,9 @@ describe GhDiff::CLI do
   end
 
   describe "get" do
-    GhDiff::CLI.start(['get', 'docs/quickstart.md', '--repo=jekyll/jekyll', '--revision=master', '--path=site'])
-    expect($stdout.string).to match(/title: Quick-start guide/)
+    it "gets a file content" do
+      GhDiff::CLI.start(['get', 'docs/quickstart.md', '--repo=jekyll/jekyll', '--path=site'])
+      expect($stdout.string).to match(/title: Quick-start guide/)
+    end
   end
 end
