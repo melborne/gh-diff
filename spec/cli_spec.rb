@@ -6,12 +6,18 @@ describe GhDiff::CLI do
     @original_dir = Dir.pwd
     @save_dir = File.join(source_root, "diff")
     Dir.chdir(source_root)
+    @dotenv = File.join(source_root, ".env")
+    File.write(@dotenv, <<-EOS)
+REPO=jekyll/jekyll
+PATH=site
+    EOS
     Octokit.reset!
   end
 
   after do
     $stdout, $stderr = STDIN, STDERR
     FileUtils.rm_r(@save_dir) if Dir.exist?(@save_dir)
+    FileUtils.rm(@dotenv) if File.exist?(@dotenv)
     Dir.chdir(@original_dir)
   end
 
@@ -32,6 +38,13 @@ describe GhDiff::CLI do
         path = 'diff/docs/quickstart.md'
         expect(File.exist? path).to be true
         expect(File.read path).to match(/title: Quick-start guide/)
+      end
+    end
+
+    it "reads options from .env file" do
+      VCR.use_cassette 'quickstart' do
+        GhDiff::CLI.start(['get', 'docs/quickstart.md'])
+        expect($stdout.string).to match(/title: Quick-start guide/)
       end
     end
   end
