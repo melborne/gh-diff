@@ -30,18 +30,19 @@ PATH=site
   describe "get" do
     it "prints a file content" do
       VCR.use_cassette 'quickstart' do
-        GhDiff::CLI.start(['get', 'docs/quickstart.md',
-                           '--repo=jekyll/jekyll', '--path=site'])
+        ARGV.replace %w(get docs/quickstart.md
+                        --repo=jekyll/jekyll --path=site)
+        GhDiff::CLI.start
         expect($stdout.string).to match(/title: Quick-start guide/)
       end
     end
 
     it "saves a file content" do
       VCR.use_cassette 'quickstart' do
-        GhDiff::CLI.start(['get', 'docs/quickstart.md',
-                           '--repo=jekyll/jekyll', '--path=site',
-                           '--save'])
+        ARGV.replace %w(get docs/quickstart.md
+                        --repo=jekyll/jekyll --path=site --save)
         path = 'diff/docs/quickstart.md'
+        expect(GhDiff::CLI.start).to match(/title: Quick-start guide/)
         expect(File.exist? path).to be true
         expect(File.read path).to match(/title: Quick-start guide/)
       end
@@ -52,7 +53,8 @@ PATH=site
   describe ".env" do
     it "reads options from .env file" do
       VCR.use_cassette 'quickstart' do
-        GhDiff::CLI.start(['get', 'docs/quickstart.md'])
+        ARGV.replace %w(get docs/quickstart.md)
+        GhDiff::CLI.start
         expect($stdout.string).to match(/title: Quick-start guide/)
       end
     end
