@@ -52,6 +52,8 @@ module GhDiff
         File.write(path, content)
       end
 
+      # Accept ENV global variables named with 'GH_' prefix (ex. GH_REPO)
+      # and variables (ex. REPO) in dotenv file(.env) in the project root.
       def update_options_with_dotenv(options)
         @@dotenv ||= Dotenv.load
         envs = ENV.select { |env| env.start_with?('GH_') }
