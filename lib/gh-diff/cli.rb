@@ -18,19 +18,18 @@ module GhDiff
     option :stdout, default:true, type: :boolean, desc:'output file content in terminal'
     def get(file)
       opts = update_options_with_dotenv(options.dup)
-      path = File.join(opts[:path], file)
       content = get_content( opts[:repo],
-                             path:path,
+                             path:build_path(opts[:path], file),
                              ref:opts[:revision] )
 
       if opts[:save]
-        save(content, File.join(opts[:save_path], file))
+        save(content, build_path(opts[:save_path], file))
       elsif opts[:stdout]
         print content
       end
       content
     rescue ::Octokit::NotFound
-      puts "File not found at remote: '#{path}'"
+      puts "File not found at remote: '#{build_path(opts[:path], file)}'"
       exit(1)
     rescue => e
       puts "something go wrong: #{e}"
@@ -41,6 +40,14 @@ module GhDiff
       def get_content(repo, opts)
         f = Octokit.contents(repo, opts)
         Base64.decode64(f.content)
+      end
+
+      def build_path(dir, file)
+        if dir.nil? || dir.empty?
+          file
+        else
+          File.join(dir, file)
+        end
       end
 
       def mkdir(dir)
