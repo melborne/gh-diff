@@ -1,23 +1,29 @@
 require 'spec_helper'
 
 describe GhDiff::CLI do
-  before do
-    $stdout, $stderr = StringIO.new, StringIO.new
-    @original_dir = Dir.pwd
-    @save_dir = File.join(source_root, "diff")
-    Dir.chdir(source_root)
+  before(:all) do
     @dotenv = File.join(source_root, ".env")
     File.write(@dotenv, <<-EOS)
 REPO=jekyll/jekyll
 PATH=site
     EOS
+  end
+
+  after(:all) do
+    FileUtils.rm(@dotenv) if File.exist?(@dotenv)
+  end
+
+  before do
+    $stdout, $stderr = StringIO.new, StringIO.new
+    @original_dir = Dir.pwd
+    @save_dir = File.join(source_root, "diff")
+    Dir.chdir(source_root)
     Octokit.reset!
   end
 
   after do
     $stdout, $stderr = STDIN, STDERR
     FileUtils.rm_r(@save_dir) if Dir.exist?(@save_dir)
-    FileUtils.rm(@dotenv) if File.exist?(@dotenv)
     Dir.chdir(@original_dir)
   end
 
@@ -41,6 +47,9 @@ PATH=site
       end
     end
 
+  end
+
+  describe ".env" do
     it "reads options from .env file" do
       VCR.use_cassette 'quickstart' do
         GhDiff::CLI.start(['get', 'docs/quickstart.md'])
