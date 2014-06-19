@@ -5,7 +5,7 @@ require "octokit"
 require "dotenv"
 
 module GhDiff
-  ENV_KEYS = %w(USERNAME PASSOWRD TOKEN REPO REVISION PATH)
+  ENV_KEYS = %w(USERNAME PASSOWRD TOKEN REPO REVISION PATH SAVE_PATH)
   class CLI < Thor
     @@dotenv = nil
     class_option :repo, aliases:'-g', desc:'target repository'
@@ -54,9 +54,11 @@ module GhDiff
 
       def update_options_with_dotenv(options)
         @@dotenv ||= Dotenv.load
-        # env = ENV.select { |env| env.start_with?('GH_') }
-        #          .inject({}) { |h, (k, v)| h[k.sub(/^GH_/, '')] = v; h}
-        @@dotenv.each do |key, val|
+        envs = ENV.select { |env| env.start_with?('GH_') }
+                  .inject({}) { |h, (k, v)| h[k.sub(/^GH_/, '')] = v; h }
+        envs.update(@@dotenv)
+        envs.select! { |env| ENV_KEYS.include? env }
+        envs.each do |key, val|
           env = key.downcase
           options.update(env => val) unless options[env]
         end
