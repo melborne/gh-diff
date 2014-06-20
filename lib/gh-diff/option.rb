@@ -3,7 +3,9 @@ require "dotenv"
 module GhDiff
   class Option
     def initialize(opts)
-      @opts = opts
+      @opts = opts.inject({}) do |h, (k, v)|
+        h[k.to_s] = v; h
+      end
     end
 
     def dotenv
@@ -17,12 +19,17 @@ module GhDiff
     # returns: ENV variables prefixed with 'GH_'(default)
     #          and variables defined in dotenv file.
     def env(prefix='GH_')
-      envs =
+      @envs ||= begin
         ENV.select { |env| env.start_with? prefix }
            .inject({}) do |h, (k, v)|
              h[k.sub(/^#{prefix}/, '').downcase] = v; h
            end
-      envs.merge(dotenv)
+      end
+      @envs.merge(dotenv)
+    end
+
+    def with_env(prefix='GH_')
+      @opts.merge(env(prefix))
     end
 
     def update_options_with_dotenv(options)
