@@ -15,6 +15,14 @@ Resource = Struct.new(:content, :sha, :path, :url)
 
 RSpec.configure do |c|
   c.include Helpers
+  c.before do
+    @original_dir = Dir.pwd
+    Dir.chdir(source_root)
+  end
+
+  c.after do
+    Dir.chdir(@original_dir)
+  end
 end
 
 VCR.configure do |c|

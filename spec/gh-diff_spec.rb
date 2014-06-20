@@ -7,15 +7,6 @@ describe GhDiff do
 end
 
 describe GhDiff::GhDiff do
-  before do
-    @original_dir = Dir.pwd
-    Dir.chdir(source_root)
-  end
-
-  after do
-    Dir.chdir(@original_dir)
-  end
-
   let(:gh) do
     GhDiff::GhDiff.new 'jekyll/jekyll', revision:'master', dir:'site'
   end

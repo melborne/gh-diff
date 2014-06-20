@@ -15,16 +15,13 @@ PATH=site
 
   before do
     $stdout, $stderr = StringIO.new, StringIO.new
-    @original_dir = Dir.pwd
     @save_dir = File.join(source_root, "diff")
-    Dir.chdir(source_root)
     Octokit.reset!
   end
 
   after do
     $stdout, $stderr = STDIN, STDERR
     FileUtils.rm_r(@save_dir) if Dir.exist?(@save_dir)
-    Dir.chdir(@original_dir)
   end
 
   describe "get" do
