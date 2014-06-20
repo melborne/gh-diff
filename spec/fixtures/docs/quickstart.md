@@ -1,8 +1,8 @@
 ---
 layout: docs
 title: Quick-start guide
-prev_section: home
-next_section: installation
+prev_section: old-home
+next_section: old-installation
 permalink: /docs/quickstart/
 ---
 

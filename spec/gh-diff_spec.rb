@@ -7,14 +7,47 @@ describe GhDiff do
 end
 
 describe GhDiff::GhDiff do
-  let(:gh) { GhDiff::GhDiff.new 'jekyll/jekyll', revision:'master', dir:'site' }
+  before do
+    @original_dir = Dir.pwd
+    Dir.chdir(source_root)
+  end
+
+  after do
+    Dir.chdir(@original_dir)
+  end
+
+  let(:gh) do
+    GhDiff::GhDiff.new 'jekyll/jekyll', revision:'master', dir:'site'
+  end
 
   describe "get" do
-    it "returns file content" do
+    it "returns a file content" do
       VCR.use_cassette('quickstart') do
         content = gh.get('docs/quickstart.md')
         expect(content).to match(/title: Quick-start guide/)
       end
     end
   end
+
+  describe "diff" do
+    it "compares files" do
+      VCR.use_cassette('quickstart') do
+        diff = gh.diff('docs/quickstart.md')
+        expect(diff).to be_instance_of Diffy::Diff
+        expect(diff.to_s).to eq <<-EOS
+ ---
+ layout: docs
+ title: Quick-start guide
+-prev_section: old-home
+-next_section: old-installation
++prev_section: home
++next_section: installation
+ permalink: /docs/quickstart/
+ ---
+ 
+        EOS
+      end
+    end
+  end
 end
+
