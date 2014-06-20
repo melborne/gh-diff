@@ -33,4 +33,11 @@ DIR=site
       expect(option.env).to eq(opts)
     end
   end
+
+  describe "#with_env" do
+    it "returns options merged with env variables" do
+      opts = @global_opts.merge(@dotenv_opts).merge('user' => 'Charlie')
+      expect(option.with_env).to eq(opts)
+    end
+  end
 end
