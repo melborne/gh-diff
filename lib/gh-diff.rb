@@ -1,5 +1,6 @@
 require "gh-diff/version"
 require "gh-diff/cli"
+require "gh-diff/option"
 
 require "base64"
 require "diffy"
