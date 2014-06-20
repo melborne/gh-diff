@@ -6,14 +6,15 @@ require "diffy"
 
 module GhDiff
   class GhDiff
-    def initialize(repo, opts)
+    def initialize(repo, revision:'master', dir:nil)
       @repo = repo
-      @opts = opts
+      @revision = revision
+      @dir = dir
     end
 
     def get(file)
-      path, ref = build_path(@opts[:dir], file), @opts[:revision]
-      f = Octokit.contents(@repo, path:path, ref:ref)
+      path = build_path(@dir, file)
+      f = Octokit.contents(@repo, path:path, ref:@revision)
       Base64.decode64(f.content)
     end
 
