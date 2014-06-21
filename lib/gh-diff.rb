@@ -20,10 +20,10 @@ module GhDiff
       Base64.decode64(f.content)
     end
 
-    def diff(file, opts={})
+    def diff(file1, file2=file1, opts={})
       opts = {context:3}.merge(opts)
-      local = File.read(file)
-      remote = get(file)
+      local = File.read(file1)
+      remote = get(file2)
       Diffy::Diff.new(local, remote, opts)
     end
 
