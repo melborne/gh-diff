@@ -39,5 +39,19 @@ DIR=site
       opts = @global_opts.merge(@dotenv_opts).merge('user' => 'Charlie')
       expect(option.with_env).to eq(opts)
     end
+
+    it "overwrite options in env variables" do
+      opts = @global_opts.merge(@dotenv_opts).merge('user' => 'Charlie', 'token' => 'abcde')
+      option.update(token:'abcde')
+      expect(option.with_env).to eq(opts)
+    end
+  end
+
+  describe "#update" do
+    it "update options hash" do
+      opts = {'user' => 'Tom'}
+      option.update(user: 'Tom')
+      expect(option.opts).to eq(opts)
+    end
   end
 end

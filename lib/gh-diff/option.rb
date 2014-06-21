@@ -2,10 +2,13 @@ require "dotenv"
 
 module GhDiff
   class Option
+    attr_reader :opts
     def initialize(opts)
-      @opts = opts.inject({}) do |h, (k, v)|
-        h[k.to_s] = v; h
-      end
+      @opts = downstringfy_key(opts)
+    end
+
+    def update(opts)
+      @opts.update(downstringfy_key opts)
     end
 
     def dotenv
@@ -29,21 +32,14 @@ module GhDiff
     end
 
     def with_env(prefix='GH_')
-      @opts.merge(env(prefix))
+      env(prefix).merge(@opts)
     end
 
-    def update_options_with_dotenv(options)
-      @@dotenv ||= Dotenv.load
-      envs = ENV.select { |env| env.start_with?('GH_') }
-                .inject({}) { |h, (k, v)| h[k.sub(/^GH_/, '')] = v; h }
-      envs.update(@@dotenv)
-      envs.select! { |env| ENV_KEYS.include? env }
-      envs.each do |key, val|
-        env = key.downcase
-        options.update(env => val) unless options[env]
+    private
+    def downstringfy_key(opts)
+      opts.inject({}) do |h, (k, v)|
+        h[k.to_s.downcase] = v; h
       end
-      options
     end
-    
   end
 end
