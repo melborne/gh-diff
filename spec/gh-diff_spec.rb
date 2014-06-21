@@ -11,6 +11,21 @@ describe GhDiff::Diff do
     GhDiff::Diff.new 'jekyll/jekyll', revision:'master', dir:'site'
   end
 
+  before(:all) do
+    @diff_result =<<-EOS
+ ---
+ layout: docs
+ title: Quick-start guide
+-prev_section: old-home
+-next_section: old-installation
++prev_section: home
++next_section: installation
+ permalink: /docs/quickstart/
+ ---
+ 
+    EOS
+  end
+
   describe "get" do
     it "returns a file content" do
       VCR.use_cassette('quickstart') do
@@ -25,18 +40,7 @@ describe GhDiff::Diff do
       VCR.use_cassette('quickstart') do
         diff = gh.diff('docs/quickstart.md')
         expect(diff).to be_instance_of Diffy::Diff
-        expect(diff.to_s).to eq <<-EOS
- ---
- layout: docs
- title: Quick-start guide
--prev_section: old-home
--next_section: old-installation
-+prev_section: home
-+next_section: installation
- permalink: /docs/quickstart/
- ---
- 
-        EOS
+        expect(diff.to_s).to eq @diff_result
       end
     end
 
@@ -45,18 +49,7 @@ describe GhDiff::Diff do
         VCR.use_cassette('quickstart') do
           diff = gh.diff('docs/quickstart.ja.md',
                          'docs/quickstart.md', commentout:true)
-          expect(diff.to_s).to eq <<-EOS
- ---
- layout: docs
- title: Quick-start guide
--prev_section: old-home
--next_section: old-installation
-+prev_section: home
-+next_section: installation
- permalink: /docs/quickstart/
- ---
- 
-          EOS
+          expect(diff.to_s).to eq @diff_result
         end
       end
     end
