@@ -19,7 +19,8 @@ module GhDiff
       Base64.decode64(f.content)
     end
 
-    def diff(file, opts={context:3})
+    def diff(file, opts={})
+      opts = {context:3}.merge(opts)
       local = File.read(file)
       remote = get(file)
       Diffy::Diff.new(local, remote, opts)
