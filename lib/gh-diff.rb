@@ -4,6 +4,7 @@ require "gh-diff/option"
 
 require "base64"
 require "diffy"
+require "togglate"
 
 module GhDiff
   class Diff
@@ -20,9 +21,11 @@ module GhDiff
       Base64.decode64(f.content)
     end
 
-    def diff(file1, file2=file1, opts={})
+    def diff(file1, file2=file1,
+             commentout:false, comment_tag:'original', **opts)
       opts = {context:3}.merge(opts)
       local = File.read(file1)
+      local = Togglate.commentout(local, tag:comment_tag)[0] if commentout
       remote = get(file2)
       Diffy::Diff.new(local, remote, opts)
     end

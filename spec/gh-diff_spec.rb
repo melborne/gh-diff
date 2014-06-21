@@ -39,6 +39,27 @@ describe GhDiff::Diff do
         EOS
       end
     end
+
+    context "with commentout option" do
+      it "compares with texts only in comment tags" do
+        VCR.use_cassette('quickstart') do
+          diff = gh.diff('docs/quickstart.ja.md',
+                         'docs/quickstart.md', commentout:true)
+          expect(diff.to_s).to eq <<-EOS
+ ---
+ layout: docs
+ title: Quick-start guide
+-prev_section: old-home
+-next_section: old-installation
++prev_section: home
++next_section: installation
+ permalink: /docs/quickstart/
+ ---
+ 
+          EOS
+        end
+      end
+    end
   end
 end
 
