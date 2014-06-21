@@ -6,9 +6,9 @@ describe GhDiff do
   end
 end
 
-describe GhDiff::GhDiff do
+describe GhDiff::Diff do
   let(:gh) do
-    GhDiff::GhDiff.new 'jekyll/jekyll', revision:'master', dir:'site'
+    GhDiff::Diff.new 'jekyll/jekyll', revision:'master', dir:'site'
   end
 
   describe "get" do

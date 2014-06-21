@@ -6,7 +6,8 @@ require "base64"
 require "diffy"
 
 module GhDiff
-  class GhDiff
+  class Diff
+    attr_accessor :repo, :revision, :dir
     def initialize(repo, revision:'master', dir:nil)
       @repo = repo
       @revision = revision
