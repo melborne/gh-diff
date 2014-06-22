@@ -24,10 +24,19 @@ module GhDiff
     def diff(file1, file2=file1,
              commentout:false, comment_tag:'original', **opts)
       opts = {context:3}.merge(opts)
-      local = File.read(file1)
-      local = Togglate.commentout(local, tag:comment_tag)[0] if commentout
-      remote = get(file2)
-      Diffy::Diff.new(local, remote, opts)
+      ts = []
+      if File.directory?(file1)
+        local_files = Dir.glob("#{file1}/*")
+        diffs = []
+        local_files.map do |file|
+          Thread.new(file) do |_file|
+            diffs << _diff(_file, _file, commentout, comment_tag, opts)
+          end
+        end.each(&:join)
+        diffs
+      else
+        _diff(file1, file2, commentout, comment_tag, opts)
+      end
     end
 
     private
@@ -37,6 +46,13 @@ module GhDiff
       else
         File.join(dir, file)
       end
+    end
+
+    def _diff(file1, file2, commentout, comment_tag, opts)
+      local = File.read(file1)
+      local = Togglate.commentout(local, tag:comment_tag)[0] if commentout
+      remote = get(file2)
+      Diffy::Diff.new(local, remote, opts)
     end
   end
 end
