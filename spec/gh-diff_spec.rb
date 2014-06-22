@@ -90,4 +90,14 @@ describe GhDiff::Diff do
       end
     end
   end
+
+  describe "#ref" do
+    it "gets a reference data form the id" do
+      VCR.use_cassette('ref') do
+        ref = gh.ref('master')
+        expect(ref[:ref]).to eq "refs/heads/master"
+        expect(ref[:object][:sha]).to include "e345ceb01ac61"
+      end
+    end
+  end
 end

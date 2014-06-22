@@ -47,6 +47,10 @@ module GhDiff
       [added, removed]
     end
 
+    def ref(ref='master')
+      res = get_ref(@repo, "heads/#{ref}")
+    end
+
     private
     def build_path(dir, file)
       if dir.nil? || dir.empty?
@@ -65,6 +69,10 @@ module GhDiff
 
     def get_contents(repo, path, ref)
       Octokit.contents(repo, path:path, ref:ref)
+    end
+
+    def get_ref(repo, ref)
+      Octokit.ref(repo, ref)
     end
   end
 end
