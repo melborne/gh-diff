@@ -24,6 +24,17 @@ describe GhDiff::Diff do
  ---
  
     EOS
+
+    @diff_result2 =<<-EOS
+ permalink: /docs/migrations/
+ ---
+ 
+-add this line.
+-
+ If you’re switching to Jekyll from another blogging system, Jekyll’s importers
+ can help you with the move. To learn more about importing your site to Jekyll,
+ visit our [`jekyll-import` docs site](http://import.jekyllrb.com/docs/home/).
+    EOS
   end
 
   describe "get" do
@@ -47,12 +58,22 @@ describe GhDiff::Diff do
     context "with commentout option" do
       it "compares with texts only in comment tags" do
         VCR.use_cassette('quickstart') do
-          diff = gh.diff('docs/quickstart.ja.md',
+          diff = gh.diff('ja-docs/quickstart.ja.md',
                          'docs/quickstart.md', commentout:true)
           expect(diff.to_s).to eq @diff_result
         end
       end
     end
+
+    context "pass a directory" do
+      it "compares files in the directory" do
+        VCR.use_cassette('docs') do
+          diffs = gh.diff('docs').sort_by(&:to_s)
+          expect(diffs.all?{ |diff| Diffy::Diff === diff }).to be true
+          expect(diffs[0].to_s).to eq @diff_result
+          expect(diffs[1].to_s).to eq @diff_result2
+        end
+      end
+    end
   end
 end
-
