@@ -17,7 +17,7 @@ module GhDiff
 
     def get(file)
       path = build_path(@dir, file)
-      f = Octokit.contents(@repo, path:path, ref:@revision)
+      f = get_contents(@repo, path, @revision)
       Base64.decode64(f.content)
     end
 
@@ -41,7 +41,7 @@ module GhDiff
     def dir_diff(dir)
       local_files = Dir.glob("#{dir}/*").map { |f| File.basename f }
       remote_path = build_path(@dir, dir)
-      remote_files = Octokit.contents(@repo, path:remote_path, ref:@revision).map(&:name)
+      remote_files = get_contents(@repo, remote_path, @revision).map(&:name)
       added = remote_files - local_files
       removed = local_files - remote_files
       [added, removed]
@@ -61,6 +61,10 @@ module GhDiff
       local = Togglate.commentout(local, tag:comment_tag)[0] if commentout
       remote = get(file2)
       Diffy::Diff.new(local, remote, opts)
+    end
+
+    def get_contents(repo, path, ref)
+      Octokit.contents(repo, path:path, ref:ref)
     end
   end
 end
