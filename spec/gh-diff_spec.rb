@@ -37,7 +37,7 @@ describe GhDiff::Diff do
     EOS
   end
 
-  describe "get" do
+  describe "#get" do
     it "returns a file content" do
       VCR.use_cassette('quickstart') do
         content = gh.get('docs/quickstart.md')
@@ -46,7 +46,7 @@ describe GhDiff::Diff do
     end
   end
 
-  describe "diff" do
+  describe "#diff" do
     it "compares files" do
       VCR.use_cassette('quickstart') do
         diff = gh.diff('docs/quickstart.md')
@@ -76,6 +76,17 @@ describe GhDiff::Diff do
           expect(diffs[0].to_s).to eq @diff_result
           expect(diffs[1].to_s).to eq @diff_result2
         end
+      end
+    end
+  end
+
+  describe "#dir_diff" do
+    it "compares file exsistence in target directory" do
+      VCR.use_cassette('dir') do
+        added, removed = gh.dir_diff('docs')
+        expect(added).to include('collections.md', 'heroku.md')
+        expect(added).not_to include('quickstart.md', 'migrations.md')
+        expect(removed).to be_empty
       end
     end
   end
