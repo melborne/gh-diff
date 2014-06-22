@@ -21,16 +21,15 @@ module GhDiff
       Base64.decode64(f.content)
     end
 
-    def diff(file1, file2=file1,
-             commentout:false, comment_tag:'original', **opts)
+    def diff(file1, file2=file1, commentout:false,
+                                 comment_tag:'original', **opts)
       opts = {context:3}.merge(opts)
-      ts = []
       if File.directory?(file1)
         local_files = Dir.glob("#{file1}/*")
-        diffs = []
+        diffs = {}
         local_files.map do |file|
           Thread.new(file) do |_file|
-            diffs << _diff(_file, _file, commentout, comment_tag, opts)
+            diffs[_file] = _diff(_file, _file, commentout, comment_tag, opts)
           end
         end.each(&:join)
         diffs

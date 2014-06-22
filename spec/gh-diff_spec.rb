@@ -68,7 +68,10 @@ describe GhDiff::Diff do
     context "pass a directory" do
       it "compares files in the directory" do
         VCR.use_cassette('docs') do
-          diffs = gh.diff('docs').sort_by(&:to_s)
+          res = gh.diff('docs')
+          files = res.keys
+          diffs = res.values.sort_by(&:to_s)
+          expect(files).to match_array ["docs/migrations.md", "docs/quickstart.md"]
           expect(diffs.all?{ |diff| Diffy::Diff === diff }).to be true
           expect(diffs[0].to_s).to eq @diff_result
           expect(diffs[1].to_s).to eq @diff_result2
