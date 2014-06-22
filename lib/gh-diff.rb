@@ -38,6 +38,15 @@ module GhDiff
       end
     end
 
+    def dir_diff(dir)
+      local_files = Dir.glob("#{dir}/*").map { |f| File.basename f }
+      remote_path = build_path(@dir, dir)
+      remote_files = Octokit.contents(@repo, path:remote_path, ref:@revision).map(&:name)
+      added = remote_files - local_files
+      removed = local_files - remote_files
+      [added, removed]
+    end
+
     private
     def build_path(dir, file)
       if dir.nil? || dir.empty?
