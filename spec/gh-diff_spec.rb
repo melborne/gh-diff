@@ -99,5 +99,12 @@ describe GhDiff::Diff do
         expect(ref[:object][:sha]).to include "e345ceb01ac61"
       end
     end
+
+    it "takes a tag as ref id" do
+      VCR.use_cassette('ref-tag') do
+        ref = gh.ref('v1.0.0')
+        expect(ref[:ref]).to eq "refs/tags/v1.0.0"
+      end
+    end
   end
 end

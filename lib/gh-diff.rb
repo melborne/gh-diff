@@ -48,7 +48,12 @@ module GhDiff
     end
 
     def ref(ref='master')
-      res = get_ref(@repo, "heads/#{ref}")
+      case ref
+      when /^v\d/
+        get_ref(@repo, "tags/#{ref}")
+      else
+        get_ref(@repo, "heads/#{ref}")
+      end
     end
 
     private
