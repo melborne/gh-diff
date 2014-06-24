@@ -7,8 +7,8 @@ describe GhDiff::Option do
 REPO=jekyll/jekyll
 DIR=site
     EOS
-    @dotenv_opts = {'repo' => 'jekyll/jekyll', 'dir' => 'site'}
-    @global_opts = {'token' => '12345'}
+    @dotenv_opts = {repo:'jekyll/jekyll', dir:'site'}
+    @global_opts = {token:'12345'}
     ENV['GH_TOKEN'] = '12345'
     ENV['GH_DIR'] = 'lib'
   end
@@ -36,12 +36,12 @@ DIR=site
 
   describe "#with_env" do
     it "returns options merged with env variables" do
-      opts = @global_opts.merge(@dotenv_opts).merge('user' => 'Charlie')
+      opts = @global_opts.merge(@dotenv_opts).merge(user:'Charlie')
       expect(option.with_env).to eq(opts)
     end
 
     it "overwrite options in env variables" do
-      opts = @global_opts.merge(@dotenv_opts).merge('user' => 'Charlie', 'token' => 'abcde')
+      opts = @global_opts.merge(@dotenv_opts).merge(user:'Charlie', token:'abcde')
       option.update(token:'abcde')
       expect(option.with_env).to eq(opts)
     end
@@ -49,7 +49,7 @@ DIR=site
 
   describe "#update" do
     it "update options hash" do
-      opts = {'user' => 'Tom'}
+      opts = {user:'Tom'}
       option.update(user: 'Tom')
       expect(option.opts).to eq(opts)
     end

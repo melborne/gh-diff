@@ -4,29 +4,24 @@ module GhDiff
   class Option
     attr_reader :opts
     def initialize(opts)
-      @opts = downstringfy_key(opts)
+      @opts = down_symbolize_key(opts)
     end
 
     def update(opts)
-      @opts.update(downstringfy_key opts)
+      @opts.update(down_symbolize_key opts)
     end
 
     def dotenv
-      @dotenv ||= begin
-        Dotenv.load.inject({}) do |h, (k, v)|
-          h[k.downcase] = v; h
-        end
-      end
+      @dotenv ||= down_symbolize_key(Dotenv.load)
     end
 
     # returns: ENV variables prefixed with 'GH_'(default)
     #          and variables defined in dotenv file.
     def env(prefix='GH_')
       @envs ||= begin
-        ENV.select { |env| env.start_with? prefix }
-           .inject({}) do |h, (k, v)|
-             h[k.sub(/^#{prefix}/, '').downcase] = v; h
-           end
+        envs = ENV.select { |env| env.start_with? prefix }
+                  .map { |k, v| [k.sub(/^#{prefix}/, ''), v] }
+        down_symbolize_key(envs)
       end
       @envs.merge(dotenv)
     end
@@ -36,9 +31,9 @@ module GhDiff
     end
 
     private
-    def downstringfy_key(opts)
+    def down_symbolize_key(opts)
       opts.inject({}) do |h, (k, v)|
-        h[k.to_s.downcase] = v; h
+        h[k.to_s.downcase.intern] = v; h
       end
     end
   end
