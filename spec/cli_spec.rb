@@ -5,7 +5,7 @@ describe GhDiff::CLI do
     @dotenv = File.join(source_root, ".env")
     File.write(@dotenv, <<-EOS)
 REPO=jekyll/jekyll
-PATH=site
+DIR=site
     EOS
   end
 
@@ -28,7 +28,7 @@ PATH=site
     it "prints a file content" do
       VCR.use_cassette 'quickstart' do
         ARGV.replace %w(get docs/quickstart.md
-                        --repo=jekyll/jekyll --path=site)
+                        --repo=jekyll/jekyll --dir=site)
         GhDiff::CLI.start
         expect($stdout.string).to match(/title: Quick-start guide/)
       end
@@ -37,7 +37,7 @@ PATH=site
     it "saves a file content" do
       VCR.use_cassette 'quickstart' do
         ARGV.replace %w(get docs/quickstart.md
-                        --repo=jekyll/jekyll --path=site --save)
+                        --repo=jekyll/jekyll --dir=site --save)
         path = 'diff/docs/quickstart.md'
         expect(GhDiff::CLI.start).to match(/title: Quick-start guide/)
         expect(File.exist? path).to be true
