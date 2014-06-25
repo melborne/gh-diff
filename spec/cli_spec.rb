@@ -30,6 +30,7 @@ describe GhDiff::CLI do
     end
 
     it "saves a file content" do
+      pending "deprecated"
       VCR.use_cassette 'quickstart' do
         ARGV.replace %w(get docs/quickstart.md
                         --repo=jekyll/jekyll --dir=site --save)
