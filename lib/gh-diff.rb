@@ -24,6 +24,7 @@ module GhDiff
     def diff(file1, file2=file1, commentout:false,
                                  comment_tag:'original', **opts)
       opts = {context:3}.merge(opts)
+      save_path = opts.delete(:save_path)
       if File.directory?(file1)
         local_files = Dir.glob("#{file1}/*")
         diffs = {}
@@ -34,7 +35,13 @@ module GhDiff
         end.each(&:join)
         diffs
       else
-        _diff(file1, file2, commentout, comment_tag, opts)
+        content = _diff(file1, file2, commentout, comment_tag, opts)
+        if save_path
+          save(save_path, content)
+          print "Diff saved at '#{save_path}'\n"
+        else
+          content
+        end
       end
     end
 
@@ -63,6 +70,15 @@ module GhDiff
       else
         File.join(dir, file)
       end
+    end
+
+    def mkdir(dir)
+      FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
+    end
+
+    def save(path, content)
+      mkdir(File.dirname path)
+      File.write(path, content)
     end
 
     def _diff(file1, file2, commentout, comment_tag, opts)

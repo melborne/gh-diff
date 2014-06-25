@@ -37,6 +37,20 @@ describe GhDiff::Diff do
     EOS
   end
 
+  before do
+    $stdout, $stderr = StringIO.new, StringIO.new
+    @save_dir = File.join(source_root, "diff")
+    @original_dir = Dir.pwd
+    Dir.chdir(source_root)
+    Octokit.reset!
+  end
+
+  after do
+    $stdout, $stderr = STDIN, STDERR
+    FileUtils.rm_r(@save_dir) if Dir.exist?(@save_dir)
+    Dir.chdir(@original_dir)
+  end
+
   describe "#get" do
     it "returns a file content" do
       VCR.use_cassette('quickstart') do
@@ -75,6 +89,19 @@ describe GhDiff::Diff do
           expect(diffs.all?{ |diff| Diffy::Diff === diff }).to be true
           expect(diffs[0].to_s).to eq @diff_result
           expect(diffs[1].to_s).to eq @diff_result2
+        end
+      end
+    end
+
+    context "with save option" do
+      it "saves a diff file" do
+        VCR.use_cassette('save-diff') do
+          path = 'diff/docs/quickstart.diff'
+          diff = gh.diff('docs/quickstart.md',
+                         save_path:path)
+          expect($stdout.string).to match(/Diff saved at '#{path}'/)
+          expect(File.exist? path).to be true
+          expect(File.read path).to eq @diff_result
         end
       end
     end
