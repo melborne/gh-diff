@@ -33,7 +33,15 @@ module GhDiff
             diffs[_file] = _diff(_file, _file, commentout, comment_tag, opts)
           end
         end.each(&:join)
-        diffs
+        if save_path
+          diffs.each do |file, content|
+            path = File.join(save_path, File.basename(file, '.*')+'.diff')
+            save(path, content)
+            print "Diff saved at '#{path}'\n"
+          end
+        else
+          diffs
+        end
       else
         content = _diff(file1, file2, commentout, comment_tag, opts)
         if save_path
