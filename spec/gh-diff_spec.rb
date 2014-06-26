@@ -6,6 +6,14 @@ describe GhDiff do
   end
 end
 
+describe "GhDiff::Auth" do
+  it "returns an error with wrong username and password" do
+    VCR.use_cassette('auth') do
+      expect {GhDiff::Auth[username:'aaa', password:'xxx']}.to raise_error(::Octokit::Unauthorized)
+    end
+  end
+end
+
 describe GhDiff::Diff do
   let(:gh) do
     GhDiff::Diff.new 'jekyll/jekyll', revision:'master', dir:'site'
