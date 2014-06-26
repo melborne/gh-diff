@@ -64,8 +64,11 @@ describe GhDiff::Diff do
     it "compares files" do
       VCR.use_cassette('quickstart') do
         diff = gh.diff('docs/quickstart.md')
-        expect(diff).to be_instance_of Diffy::Diff
-        expect(diff.to_s).to eq @diff_result
+        diff.each do |file, diff|
+          expect(file).to eq 'docs/quickstart.md'
+          expect(diff).to be_instance_of Diffy::Diff
+          expect(diff.to_s).to eq @diff_result
+        end
       end
     end
 
@@ -74,7 +77,10 @@ describe GhDiff::Diff do
         VCR.use_cassette('quickstart') do
           diff = gh.diff('ja-docs/quickstart.ja.md',
                          'docs/quickstart.md', commentout:true)
-          expect(diff.to_s).to eq @diff_result
+          diff.each do |file, diff|
+            expect(file).to eq 'ja-docs/quickstart.ja.md'
+            expect(diff.to_s).to eq @diff_result
+          end
         end
       end
     end

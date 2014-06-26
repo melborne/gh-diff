@@ -33,7 +33,7 @@ module GhDiff
       if save_path
         diffs.each { |file, content| save(content, save_path, file, dir:is_dir) }
       else
-        is_dir ? diffs : diffs[file1]
+        diffs
       end
     end
 

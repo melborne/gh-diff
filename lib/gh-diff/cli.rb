@@ -34,7 +34,10 @@ module GhDiff
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
       puts gh.diff(file1, file2, commentout:opts[:commentout],
                                  comment_tag:opts[:comment_tag])
-             .to_s(opts[:format].intern)
+      diffs.each do |file, diff|
+        print file, "\n\n"
+        print diff.to_s(opts[:format].intern)
+      end
     end
 
     desc "dir_diff DIRECTORY", "Print added and removed files in remote repository"

@@ -3,6 +3,8 @@ require 'spec_helper'
 describe GhDiff::CLI do
   before(:all) do
     @diff_result =<<-EOS
+docs/quickstart.md
+
  ---
  layout: docs
  title: Quick-start guide
