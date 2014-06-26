@@ -25,14 +25,10 @@ module GhDiff
                                  comment_tag:'original', **opts)
       opts = {context:3}.merge(opts)
       save_path = opts.delete(:save_path)
-      files =
-        if is_dir = File.directory?(file1)
-          fs = Dir.glob("#{file1}/*")
-          fs.zip(fs)
-        else
-          [[file1, file2]]
-        end
-      diffs = parallel(files) { |file1, file2|
+      is_dir = File.directory?(file1)
+
+      file_pairs = build_file_pairs(file1, file2, dir:is_dir)
+      diffs = parallel(file_pairs) { |file1, file2|
                 _diff(file1, file2, commentout, comment_tag, opts) }
       if save_path
         diffs.each { |file, content| save(content, save_path, file, dir:is_dir) }
@@ -51,21 +47,13 @@ module GhDiff
     end
 
     def ref(ref='master')
-      case ref
-      when /^v\d/
-        get_ref(@repo, "tags/#{ref}")
-      else
-        get_ref(@repo, "heads/#{ref}")
-      end
+      type = ref.match(/^v\d/) ? :tags : :heads
+      get_ref(@repo, "#{type}/#{ref}")
     end
 
     private
     def build_path(dir, file)
-      if dir.nil? || dir.empty?
-        file
-      else
-        File.join(dir, file)
-      end
+      (dir.nil? || dir.empty?) ? file : File.join(dir, file)
     end
 
     def mkdir(dir)
@@ -93,6 +81,15 @@ module GhDiff
 
     def get_ref(repo, ref)
       Octokit.ref(repo, ref)
+    end
+
+    def build_file_pairs(file1, file2, dir:false)
+      if dir
+        fs = Dir.glob("#{file1}/*")
+        fs.zip(fs)
+      else
+        [[file1, file2]]
+      end
     end
 
     def parallel(items)
