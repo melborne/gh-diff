@@ -26,10 +26,15 @@ module GhDiff
     end
 
     desc "diff FILE", "Compare FILE between local and remote repository"
-    def diff(file)
+    option :commentout, aliases:'-c', default:true, type: :boolean
+    option :comment_tag, aliases:'-t', default:'original'
+    option :format, aliases:'-f', default:'color'
+    def diff(file1, file2=file1)
       opts = Option.new(options).with_env
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
-      print gh.diff(file)
+      puts gh.diff(file1, file2, commentout:opts[:commentout],
+                                 comment_tag:opts[:comment_tag])
+             .to_s(opts[:format].intern)
     end
 
     desc "dir_diff DIRECTORY", "Print added and removed files in remote repository"

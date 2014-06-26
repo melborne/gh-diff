@@ -6,10 +6,10 @@ describe GhDiff::CLI do
  ---
  layout: docs
  title: Quick-start guide
--prev_section: old-home
--next_section: old-installation
-+prev_section: home
-+next_section: installation
+\e[31m-prev_section: old-home\e[0m
+\e[31m-next_section: old-installation\e[0m
+\e[32m+prev_section: home\e[0m
+\e[32m+next_section: installation\e[0m
  permalink: /docs/quickstart/
  ---
  
@@ -49,7 +49,8 @@ describe GhDiff::CLI do
     it "prints diff" do
       VCR.use_cassette('quickstart') do
         ARGV.replace %w(diff docs/quickstart.md
-                        --repo=jekyll/jekyll --dir=site)
+                        --repo=jekyll/jekyll --dir=site
+                        --commentout=false)
         GhDiff::CLI.start
         expect($stdout.string).to eq @diff_result
       end
