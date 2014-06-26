@@ -25,29 +25,19 @@ module GhDiff
                                  comment_tag:'original', **opts)
       opts = {context:3}.merge(opts)
       save_path = opts.delete(:save_path)
-      if File.directory?(file1)
-        local_files = Dir.glob("#{file1}/*")
-        diffs =
-          parallel(local_files) do |file|
-            _diff(file, file, commentout, comment_tag, opts)
-          end
-        if save_path
-          diffs.each do |file, content|
-            path = File.join(save_path, File.basename(file, '.*')+'.diff')
-            save(path, content)
-            print "Diff saved at '#{path}'\n"
-          end
+      files =
+        if is_dir = File.directory?(file1)
+          fs = Dir.glob("#{file1}/*")
+          fs.zip(fs)
         else
-          diffs
+          [[file1, file2]]
         end
+      diffs = parallel(files) { |file1, file2|
+                _diff(file1, file2, commentout, comment_tag, opts) }
+      if save_path
+        diffs.each { |file, content| save(content, save_path, file, dir:is_dir) }
       else
-        content = _diff(file1, file2, commentout, comment_tag, opts)
-        if save_path
-          save(save_path, content)
-          print "Diff saved at '#{save_path}'\n"
-        else
-          content
-        end
+        is_dir ? diffs : diffs[file1]
       end
     end
 
@@ -82,9 +72,12 @@ module GhDiff
       FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
     end
 
-    def save(path, content)
+    def save(content, save_path, file, dir:false)
+      directory = dir ? save_path : File.dirname(save_path)
+      path = File.join(directory, File.basename(file, '.*') + '.diff')
       mkdir(File.dirname path)
       File.write(path, content)
+      print "Diff saved at '#{path}'\n"
     end
 
     def _diff(file1, file2, commentout, comment_tag, opts)
@@ -104,8 +97,10 @@ module GhDiff
 
     def parallel(items)
       result = {}
-      items.map do |item|
-        Thread.new(item) { |_item| result[_item] = yield(_item) }
+      items.map do |item1, item2|
+        Thread.new(item1, item2) do |_item1, _item2|
+          result[_item1] = yield(_item1, _item2)
+        end
       end.each(&:join)
       result
     end

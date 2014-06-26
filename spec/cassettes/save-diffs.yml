@@ -142,4 +142,75 @@ http_interactions:
       string: '{"name":"migrations.md","path":"site/docs/migrations.md","sha":"a080c6c6ee28720ea347b0e4fe0660e3e333d501","size":359,"url":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master","html_url":"https://github.com/jekyll/jekyll/blob/master/site/docs/migrations.md","git_url":"https://api.github.com/repos/jekyll/jekyll/git/blobs/a080c6c6ee28720ea347b0e4fe0660e3e333d501","type":"file","content":"LS0tCmxheW91dDogZG9jcwp0aXRsZTogQmxvZyBtaWdyYXRpb25zCnByZXZf\nc2VjdGlvbjogYXNzZXRzCm5leHRfc2VjdGlvbjogdGVtcGxhdGVzCnBlcm1h\nbGluazogL2RvY3MvbWlncmF0aW9ucy8KLS0tCgpJZiB5b3XigJlyZSBzd2l0\nY2hpbmcgdG8gSmVreWxsIGZyb20gYW5vdGhlciBibG9nZ2luZyBzeXN0ZW0s\nIEpla3lsbOKAmXMgaW1wb3J0ZXJzCmNhbiBoZWxwIHlvdSB3aXRoIHRoZSBt\nb3ZlLiBUbyBsZWFybiBtb3JlIGFib3V0IGltcG9ydGluZyB5b3VyIHNpdGUg\ndG8gSmVreWxsLAp2aXNpdCBvdXIgW2BqZWt5bGwtaW1wb3J0YCBkb2NzIHNp\ndGVdKGh0dHA6Ly9pbXBvcnQuamVreWxscmIuY29tL2RvY3MvaG9tZS8pLgo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master","git":"https://api.github.com/repos/jekyll/jekyll/git/blobs/a080c6c6ee28720ea347b0e4fe0660e3e333d501","html":"https://github.com/jekyll/jekyll/blob/master/site/docs/migrations.md"}}'
     http_version: 
   recorded_at: Wed, 25 Jun 2014 14:05:45 GMT
+- request:
+    method: get
+    uri: https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 3.1.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Thu, 26 Jun 2014 01:06:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Ratelimit-Reset:
+      - '1403748400'
+      Cache-Control:
+      - public, max-age=60, s-maxage=60
+      Last-Modified:
+      - Wed, 25 Jun 2014 20:56:49 GMT
+      Etag:
+      - '"cc1f1604a33f46a76ee717a0bef0d0db"'
+      Vary:
+      - Accept
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3; format=json
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Github-Request-Id:
+      - 3C2F1730:01FC:120D0F8C:53AB7220
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Served-By:
+      - a8d8e492d6966f0c23dee2eed64c678a
+    body:
+      encoding: UTF-8
+      string: '{"name":"migrations.md","path":"site/docs/migrations.md","sha":"a080c6c6ee28720ea347b0e4fe0660e3e333d501","size":359,"url":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master","html_url":"https://github.com/jekyll/jekyll/blob/master/site/docs/migrations.md","git_url":"https://api.github.com/repos/jekyll/jekyll/git/blobs/a080c6c6ee28720ea347b0e4fe0660e3e333d501","type":"file","content":"LS0tCmxheW91dDogZG9jcwp0aXRsZTogQmxvZyBtaWdyYXRpb25zCnByZXZf\nc2VjdGlvbjogYXNzZXRzCm5leHRfc2VjdGlvbjogdGVtcGxhdGVzCnBlcm1h\nbGluazogL2RvY3MvbWlncmF0aW9ucy8KLS0tCgpJZiB5b3XigJlyZSBzd2l0\nY2hpbmcgdG8gSmVreWxsIGZyb20gYW5vdGhlciBibG9nZ2luZyBzeXN0ZW0s\nIEpla3lsbOKAmXMgaW1wb3J0ZXJzCmNhbiBoZWxwIHlvdSB3aXRoIHRoZSBt\nb3ZlLiBUbyBsZWFybiBtb3JlIGFib3V0IGltcG9ydGluZyB5b3VyIHNpdGUg\ndG8gSmVreWxsLAp2aXNpdCBvdXIgW2BqZWt5bGwtaW1wb3J0YCBkb2NzIHNp\ndGVdKGh0dHA6Ly9pbXBvcnQuamVreWxscmIuY29tL2RvY3MvaG9tZS8pLgo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master","git":"https://api.github.com/repos/jekyll/jekyll/git/blobs/a080c6c6ee28720ea347b0e4fe0660e3e333d501","html":"https://github.com/jekyll/jekyll/blob/master/site/docs/migrations.md"}}'
+    http_version: 
+  recorded_at: Thu, 26 Jun 2014 01:06:40 GMT
 recorded_with: VCR 2.9.2
