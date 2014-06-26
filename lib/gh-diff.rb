@@ -27,12 +27,10 @@ module GhDiff
       save_path = opts.delete(:save_path)
       if File.directory?(file1)
         local_files = Dir.glob("#{file1}/*")
-        diffs = {}
-        local_files.map do |file|
-          Thread.new(file) do |_file|
-            diffs[_file] = _diff(_file, _file, commentout, comment_tag, opts)
+        diffs =
+          parallel(local_files) do |file|
+            _diff(file, file, commentout, comment_tag, opts)
           end
-        end.each(&:join)
         if save_path
           diffs.each do |file, content|
             path = File.join(save_path, File.basename(file, '.*')+'.diff')
@@ -102,6 +100,14 @@ module GhDiff
 
     def get_ref(repo, ref)
       Octokit.ref(repo, ref)
+    end
+
+    def parallel(items)
+      result = {}
+      items.map do |item|
+        Thread.new(item) { |_item| result[_item] = yield(_item) }
+      end.each(&:join)
+      result
     end
   end
 end
