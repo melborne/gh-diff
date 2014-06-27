@@ -48,19 +48,19 @@ module GhDiff
             header = "#{file}\n\n"
             save(header + content, opts[:save_dir], file)
           else
-            print "\e[31mno Diff on '#{file}'\e[0m\n"
+            print "\e[32mno Diff on '#{file}'\e[0m\n"
           end
         else
           content = diff.to_s(:text)
           unless content.empty?
             if opts[:name_only]
-              print "\e[32mDiff found on '#{file}'\e[0m\n"
+              print "\e[31mDiff found on '#{file}'\e[0m\n"
             else
               print file, "\n\n"
               print diff.to_s(opts[:format])
             end
           else
-            print "\e[31mno Diff on '#{file}'\e[0m\n"
+            print "\e[32mno Diff on '#{file}'\e[0m\n"
           end
         end
       end
