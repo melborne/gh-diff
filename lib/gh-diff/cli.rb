@@ -56,15 +56,15 @@ module GhDiff
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
       added, removed = gh.dir_diff(dir)
       if [added, removed].all?(&:empty?)
-        puts "Nothing changed"
+        puts "\e[33mNothing changed\e[0m"
       else
         if added.any?
-          puts "New files:"
-          puts added.map { |f| "  " + f }
+          puts "\e[33mNew files:\e[0m"
+          puts added.map { |f| "  \e[32m" + f + "\e[0m" }
         end
         if removed.any?
-          puts "Removed files:"
-          puts removed.map { |f| "  " + f }
+          puts "\e[33mRemoved files:\e[0m"
+          puts removed.map { |f| "  \e[31m" + f + "\e[0m" }
         end
       end
     end
