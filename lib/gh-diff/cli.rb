@@ -7,12 +7,12 @@ module GhDiff
     class_option :dir, aliases:'-p', desc:'target file directory'
     class_option :username, desc:'github username'
     class_option :password, desc:'github password'
-    class_option :oauth, desc:'github oauth token'
+    class_option :token, desc:'github API access token'
 
     desc "get FILE", "Get FILE content from github repository"
     def get(file)
       opts = Option.new(options).with_env
-      github_auth(opts[:username], opts[:password], opts[:oauth])
+      github_auth(opts[:username], opts[:password], opts[:token])
 
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
       print gh.get(file)
@@ -34,7 +34,7 @@ module GhDiff
     option :name_only, default:true, type: :boolean
     def diff(file1, file2=file1)
       opts = Option.new(options).with_env
-      github_auth(opts[:username], opts[:password], opts[:oauth])
+      github_auth(opts[:username], opts[:password], opts[:token])
 
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
@@ -69,7 +69,7 @@ module GhDiff
     desc "dir_diff DIRECTORY", "Print added and removed files in remote repository"
     def dir_diff(dir)
       opts = Option.new(options).with_env
-      github_auth(opts[:username], opts[:password], opts[:oauth])
+      github_auth(opts[:username], opts[:password], opts[:token])
 
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
       added, removed = gh.dir_diff(dir)
@@ -89,11 +89,11 @@ module GhDiff
 
     @@login = nil
     no_tasks do
-      def github_auth(username, password, oauth)
+      def github_auth(username, password, token)
         return true if @@login
-        return false unless oauth || [username, password].all?
+        return false unless token || [username, password].all?
 
-        @@login = Auth[username:username, password:password, oauth:oauth]
+        @@login = Auth[username:username, password:password, token:token]
       rescue ::Octokit::Unauthorized
         puts "Bad Credentials"
         exit(1)

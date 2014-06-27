@@ -3,19 +3,19 @@ module GhDiff
     def self.[](opts={})
       new(username:opts[:username],
           password:opts[:password],
-          oauth:opts[:oauth]).login
+          token:opts[:token]).login
     end
 
-    def initialize(username:nil, password:nil, oauth:nil)
+    def initialize(username:nil, password:nil, token:nil)
       @username = username
       @password = password
-      @oauth = oauth
+      @token = token
       @@login = nil
     end
 
     def login
-      if @oauth
-        Octokit.configure { |c| c.access_token = @oauth }
+      if @token
+        Octokit.configure { |c| c.access_token = @token }
       else
         Octokit.configure { |c| c.login = @username; c.password = @password }
       end
