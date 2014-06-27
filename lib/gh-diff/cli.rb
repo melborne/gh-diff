@@ -1,7 +1,6 @@
 require "thor"
 
 module GhDiff
-  ENV_KEYS = %w(USERNAME PASSOWRD TOKEN REPO REVISION PATH SAVE_PATH)
   class CLI < Thor
     class_option :repo, aliases:'-g', desc:'target repository'
     class_option :revision, aliases:'-r', default:'master', desc:'target revision'
@@ -26,10 +25,11 @@ module GhDiff
       exit(1)
     end
 
-    desc "diff FILE", "Compare FILE between local and remote repository"
-    option :commentout, aliases:'-c', default:true, type: :boolean
+    desc "diff FILE", "Compare FILE(s) between local and remote repository"
+    option :commentout, aliases:'-c', default:true, type: :boolean, desc:"compare html-commented texts in local file(s) with the remote"
     option :comment_tag, aliases:'-t', default:'original'
-    option :format, aliases:'-f', default:'color'
+    option :format, aliases:'-f', default:'color', desc:"output format: any of 'color', 'html', 'html_simple' or 'text'"
+    option :save_dir, aliases:'-s', default:'diff', desc:'save directory'
     def diff(file1, file2=file1)
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:oauth])
