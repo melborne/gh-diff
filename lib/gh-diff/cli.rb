@@ -28,7 +28,7 @@ module GhDiff
     desc "diff FILE", "Compare FILE(s) between local and remote repository"
     option :commentout, aliases:'-c', default:true, type: :boolean, desc:"compare html-commented texts in local file(s) with the remote"
     option :comment_tag, aliases:'-t', default:'original'
-    option :format, aliases:'-f', default:'color', desc:"output format: any of 'color', 'html', 'html_simple' or 'text'"
+    option :format, aliases:'-f', default:'color', desc:"output format: any of text, color, html or html_simple"
     option :save, aliases:'-s', default:false, type: :boolean
     option :save_dir, default:'diff', desc:'save directory'
     option :name_only, default:true, type: :boolean
@@ -40,10 +40,9 @@ module GhDiff
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
                                     comment_tag:opts[:comment_tag])
 
-      format = opts[:format].intern
       diffs.each do |file, diff|
         if opts[:save]
-          format = :text if format==:color
+          format = opts[:format]=='color' ? :text : opts[:format]
           content = diff.to_s(format)
           unless content.empty?
             header = "#{file}\n\n"
@@ -52,13 +51,13 @@ module GhDiff
             print "\e[31mno Diff on '#{file}'\e[0m\n"
           end
         else
-          content = diff.to_s(format)
+          content = diff.to_s(:text)
           unless content.empty?
             if opts[:name_only]
               print "\e[32mDiff found on '#{file}'\e[0m\n"
             else
               print file, "\n\n"
-              print content
+              print diff.to_s(opts[:format])
             end
           else
             print "\e[31mno Diff on '#{file}'\e[0m\n"
