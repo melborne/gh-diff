@@ -110,20 +110,21 @@ describe GhDiff::Diff do
     context "with save option" do
       it "saves a diff file" do
         VCR.use_cassette('save-diff') do
-          path = 'diff/docs/quickstart.diff'
-          diff = gh.diff('docs/quickstart.md',
-                         save_path:path)
-          expect($stdout.string).to match(/Diff saved at '#{path}'/)
-          expect(File.exist? path).to be true
-          expect(File.read path).to eq @diff_result
+          path = 'diff'
+          file = 'docs/quickstart.md'
+          fpath = 'diff/docs/quickstart.diff'
+          diff = gh.diff(file, save_dir:path)
+          expect($stdout.string).to match(/Diff saved at '#{fpath}'/)
+          expect(File.exist? fpath).to be true
+          expect(File.read fpath).to eq @diff_result
         end
       end
 
       it "saves diff files" do
         VCR.use_cassette('save-diffs') do
-          path = 'diff/docs2'
-          files = ["diff/docs2/migrations.diff", "diff/docs2/quickstart.diff"]
-          diff = gh.diff('docs', save_path:path)
+          path = 'diff'
+          files = ["diff/docs/migrations.diff", "diff/docs/quickstart.diff"]
+          diff = gh.diff('docs', save_dir:path)
           files.each { |f| expect(File.exist? f).to be true }
           expect(File.read files[1]).to eq @diff_result
           expect(File.read files[0]).to eq @diff_result2

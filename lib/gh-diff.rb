@@ -26,14 +26,14 @@ module GhDiff
     def diff(file1, file2=file1, commentout:false,
                                  comment_tag:'original', **opts)
       opts = {context:3}.merge(opts)
-      save_path = opts.delete(:save_path)
+      save_dir = opts.delete(:save_dir)
       is_dir = File.directory?(file1)
 
       file_pairs = build_file_pairs(file1, file2, dir:is_dir)
       diffs = parallel(file_pairs) { |file1, file2|
                 _diff(file1, file2, commentout, comment_tag, opts) }
-      if save_path
-        diffs.each { |file, content| save(content, save_path, file, dir:is_dir) }
+      if save_dir
+        diffs.each { |file, content| save(content, save_dir, file) }
       else
         diffs
       end
@@ -62,9 +62,9 @@ module GhDiff
       FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
     end
 
-    def save(content, save_path, file, dir:false)
-      directory = dir ? save_path : File.dirname(save_path)
-      path = File.join(directory, File.basename(file, '.*') + '.diff')
+    def save(content, save_dir, file)
+      file = File.join(File.dirname(file), (File.basename(file, '.*') + '.diff'))
+      path = File.join(save_dir, file)
       mkdir(File.dirname path)
       File.write(path, content)
       print "Diff saved at '#{path}'\n"
