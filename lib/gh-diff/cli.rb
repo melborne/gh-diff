@@ -1,8 +1,4 @@
-require "base64"
-
 require "thor"
-require "octokit"
-require "dotenv"
 
 module GhDiff
   ENV_KEYS = %w(USERNAME PASSOWRD TOKEN REPO REVISION PATH SAVE_PATH)
