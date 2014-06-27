@@ -33,17 +33,32 @@ module GhDiff
     option :save_dir, default:'diff', desc:'save directory'
     def diff(file1, file2=file1)
       opts = Option.new(options).with_env
-      save_dir = opts[:save] ? opts[:save_dir] : nil
       github_auth(opts[:username], opts[:password], opts[:oauth])
 
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
-                                    comment_tag:opts[:comment_tag],
-                                    save_dir:save_dir)
-      unless save_dir
-        diffs.each do |file, diff|
-          print file, "\n\n"
-          print diff.to_s(opts[:format].intern)
+                                    comment_tag:opts[:comment_tag])
+
+      format = opts[:format].intern
+      diffs.each do |file, diff|
+        if opts[:save]
+          format = :text if format==:color
+          content = diff.to_s(format)
+          unless content.empty?
+            header = "#{file}\n\n"
+            save(header + content, opts[:save_dir], file)
+          else
+            print "\e[31mno Diff on '#{file}'\e[0m\n"
+          end
+        else
+          content = diff.to_s(format)
+          unless content.empty?
+            # print "\e[32mDiff found on '#{file}'\e[0m\n"
+            print file, "\n\n"
+            print content
+          else
+            print "\e[31mno Diff on '#{file}'\e[0m\n"
+          end
         end
       end
     end
@@ -79,6 +94,18 @@ module GhDiff
       rescue ::Octokit::Unauthorized
         puts "Bad Credentials"
         exit(1)
+      end
+
+      def mkdir(dir)
+        FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
+      end
+
+      def save(content, save_dir, file)
+        file = File.join(File.dirname(file), (File.basename(file, '.*') + '.diff'))
+        path = File.join(save_dir, file)
+        mkdir(File.dirname path)
+        File.write(path, content)
+        print "\e[32mDiff saved at '#{path}'\e[0m\n"
       end
     end
   end

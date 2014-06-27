@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Fri, 27 Jun 2014 05:02:45 GMT
+      - Fri, 27 Jun 2014 10:31:28 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,13 +31,13 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '58'
+      - '59'
       X-Ratelimit-Reset:
-      - '1403847869'
+      - '1403868688'
       Cache-Control:
       - public, max-age=60, s-maxage=60
       Last-Modified:
-      - Wed, 25 Jun 2014 20:56:49 GMT
+      - Fri, 27 Jun 2014 07:56:39 GMT
       Etag:
       - '"cc900739c902114785938b70ec00be83"'
       Vary:
@@ -59,16 +59,16 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Github-Request-Id:
-      - DE962F8B:01FF:9C18A2C:53ACFAF5
+      - DE962F8B:01FD:1AE4451F:53AD4800
       Strict-Transport-Security:
       - max-age=31536000
       X-Content-Type-Options:
       - nosniff
       X-Served-By:
-      - 132026e9262a0093e437f99db5f1e499
+      - 88d924ed861736d2749ce1a55766cb53
     body:
       encoding: UTF-8
       string: '{"name":"quickstart.md","path":"site/docs/quickstart.md","sha":"eedb976237a3f8aef6e3f0cc205fcab284370ef7","size":728,"url":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/quickstart.md?ref=master","html_url":"https://github.com/jekyll/jekyll/blob/master/site/docs/quickstart.md","git_url":"https://api.github.com/repos/jekyll/jekyll/git/blobs/eedb976237a3f8aef6e3f0cc205fcab284370ef7","type":"file","content":"LS0tCmxheW91dDogZG9jcwp0aXRsZTogUXVpY2stc3RhcnQgZ3VpZGUKcHJl\ndl9zZWN0aW9uOiBob21lCm5leHRfc2VjdGlvbjogaW5zdGFsbGF0aW9uCnBl\ncm1hbGluazogL2RvY3MvcXVpY2tzdGFydC8KLS0tCgpGb3IgdGhlIGltcGF0\naWVudCwgaGVyZSdzIGhvdyB0byBnZXQgYSBib2lsZXJwbGF0ZSBKZWt5bGwg\nc2l0ZSB1cCBhbmQgcnVubmluZy4KCnslIGhpZ2hsaWdodCBiYXNoICV9Cn4g\nJCBnZW0gaW5zdGFsbCBqZWt5bGwKfiAkIGpla3lsbCBuZXcgbXlibG9nCn4g\nJCBjZCBteWJsb2cKfi9teWJsb2cgJCBqZWt5bGwgc2VydmUKIyA9PiBOb3cg\nYnJvd3NlIHRvIGh0dHA6Ly9sb2NhbGhvc3Q6NDAwMAp7JSBlbmRoaWdobGln\naHQgJX0KClRoYXQncyBub3RoaW5nLCB0aG91Z2guIFRoZSByZWFsIG1hZ2lj\nIGhhcHBlbnMgd2hlbiB5b3Ugc3RhcnQgY3JlYXRpbmcgYmxvZwpwb3N0cywg\ndXNpbmcgdGhlIGZyb250LW1hdHRlciB0byBjb250cm9sIHRlbXBsYXRlcyBh\nbmQgbGF5b3V0cywgYW5kIHRha2luZwphZHZhbnRhZ2Ugb2YgYWxsIHRoZSBh\nd2Vzb21lIGNvbmZpZ3VyYXRpb24gb3B0aW9ucyBKZWt5bGwgbWFrZXMgYXZh\naWxhYmxlLgoKSWYgeW91J3JlIHJ1bm5pbmcgaW50byBwcm9ibGVtcywgZW5z\ndXJlIHlvdSBoYXZlIGFsbCB0aGUgW3JlcXVpcmVtZW50cwppbnN0YWxsZWRd\nW0luc3RhbGxhdGlvbl0uCgpbSW5zdGFsbGF0aW9uXTogL2RvY3MvaW5zdGFs\nbGF0aW9uLwo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/quickstart.md?ref=master","git":"https://api.github.com/repos/jekyll/jekyll/git/blobs/eedb976237a3f8aef6e3f0cc205fcab284370ef7","html":"https://github.com/jekyll/jekyll/blob/master/site/docs/quickstart.md"}}'
     http_version: 
-  recorded_at: Fri, 27 Jun 2014 05:02:44 GMT
+  recorded_at: Fri, 27 Jun 2014 10:31:28 GMT
 recorded_with: VCR 2.9.2
