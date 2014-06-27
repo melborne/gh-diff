@@ -29,17 +29,22 @@ module GhDiff
     option :commentout, aliases:'-c', default:true, type: :boolean, desc:"compare html-commented texts in local file(s) with the remote"
     option :comment_tag, aliases:'-t', default:'original'
     option :format, aliases:'-f', default:'color', desc:"output format: any of 'color', 'html', 'html_simple' or 'text'"
-    option :save_dir, aliases:'-s', default:'diff', desc:'save directory'
+    option :save, aliases:'-s', default:false, type: :boolean
+    option :save_dir, default:'diff', desc:'save directory'
     def diff(file1, file2=file1)
       opts = Option.new(options).with_env
+      save_dir = opts[:save] ? opts[:save_dir] : nil
       github_auth(opts[:username], opts[:password], opts[:oauth])
 
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
-                                 comment_tag:opts[:comment_tag])
-      diffs.each do |file, diff|
-        print file, "\n\n"
-        print diff.to_s(opts[:format].intern)
+                                    comment_tag:opts[:comment_tag],
+                                    save_dir:save_dir)
+      unless save_dir
+        diffs.each do |file, diff|
+          print file, "\n\n"
+          print diff.to_s(opts[:format].intern)
+        end
       end
     end
 
