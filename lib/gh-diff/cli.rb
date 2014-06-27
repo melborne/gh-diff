@@ -31,6 +31,7 @@ module GhDiff
     option :format, aliases:'-f', default:'color', desc:"output format: any of 'color', 'html', 'html_simple' or 'text'"
     option :save, aliases:'-s', default:false, type: :boolean
     option :save_dir, default:'diff', desc:'save directory'
+    option :name_only, default:true, type: :boolean
     def diff(file1, file2=file1)
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:oauth])
@@ -53,9 +54,12 @@ module GhDiff
         else
           content = diff.to_s(format)
           unless content.empty?
-            # print "\e[32mDiff found on '#{file}'\e[0m\n"
-            print file, "\n\n"
-            print content
+            if opts[:name_only]
+              print "\e[32mDiff found on '#{file}'\e[0m\n"
+            else
+              print file, "\n\n"
+              print content
+            end
           else
             print "\e[31mno Diff on '#{file}'\e[0m\n"
           end

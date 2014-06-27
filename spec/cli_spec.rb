@@ -52,7 +52,7 @@ docs/quickstart.md
       VCR.use_cassette('quickstart') do
         ARGV.replace %w(diff docs/quickstart.md
                         --repo=jekyll/jekyll --dir=site
-                        --commentout=false)
+                        --commentout=false --name_only=false)
         GhDiff::CLI.start
         expect($stdout.string).to eq @diff_result
       end
