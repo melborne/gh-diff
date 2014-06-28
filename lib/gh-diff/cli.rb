@@ -2,12 +2,22 @@ require "thor"
 
 module GhDiff
   class CLI < Thor
-    class_option :repo, aliases:'-g', desc:'target repository'
-    class_option :revision, aliases:'-r', default:'master', desc:'target revision'
-    class_option :dir, aliases:'-p', desc:'target file directory'
-    class_option :username, desc:'github username'
-    class_option :password, desc:'github password'
-    class_option :token, desc:'github API access token'
+    class_option :repo,
+                  aliases:'-g',
+                  desc:'target repository'
+    class_option :revision,
+                  aliases:'-r',
+                  default:'master',
+                  desc:'target revision'
+    class_option :dir,
+                  aliases:'-p',
+                  desc:'target file directory'
+    class_option :username,
+                  desc:'github username'
+    class_option :password,
+                  desc:'github password'
+    class_option :token,
+                  desc:'github API access token'
 
     desc "get FILE", "Get FILE content from github repository"
     def get(file)
@@ -26,12 +36,28 @@ module GhDiff
     end
 
     desc "diff FILE", "Compare FILE(s) between local and remote repository"
-    option :commentout, aliases:'-c', default:true, type: :boolean, desc:"compare html-commented texts in local file(s) with the remote"
-    option :comment_tag, aliases:'-t', default:'original'
-    option :format, aliases:'-f', default:'color', desc:"output format: any of text, color, html or html_simple"
-    option :save, aliases:'-s', default:false, type: :boolean
-    option :save_dir, default:'diff', desc:'save directory'
-    option :name_only, default:true, type: :boolean
+    option :commentout,
+            aliases:'-c',
+            default:true,
+            type: :boolean,
+            desc:"compare html-commented texts in local file(s) with the remote"
+    option :comment_tag,
+            aliases:'-t',
+            default:'original'
+    option :format,
+            aliases:'-f',
+            default:'color',
+            desc:"output format: any of text, color, html or html_simple"
+    option :save,
+            aliases:'-s',
+            default:false,
+            type: :boolean
+    option :save_dir,
+            default:'diff',
+            desc:'save directory'
+    option :name_only,
+            default:true,
+            type: :boolean
     def diff(file1, file2=file1)
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
