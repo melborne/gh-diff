@@ -72,8 +72,8 @@ describe GhDiff::Diff do
     it "compares files" do
       VCR.use_cassette('quickstart') do
         diff = gh.diff('docs/quickstart.md')
-        diff.each do |file, diff|
-          expect(file).to eq 'docs/quickstart.md'
+        diff.each do |files, diff|
+          expect(files.first).to eq 'docs/quickstart.md'
           expect(diff).to be_instance_of Diffy::Diff
           expect(diff.to_s).to eq @diff_result
         end
@@ -85,8 +85,8 @@ describe GhDiff::Diff do
         VCR.use_cassette('quickstart') do
           diff = gh.diff('ja-docs/quickstart.ja.md',
                          'docs/quickstart.md', commentout:true)
-          diff.each do |file, diff|
-            expect(file).to eq 'ja-docs/quickstart.ja.md'
+          diff.each do |files, diff|
+            expect(files.first).to eq 'ja-docs/quickstart.ja.md'
             expect(diff.to_s).to eq @diff_result
           end
         end
@@ -97,7 +97,7 @@ describe GhDiff::Diff do
       it "compares files in the directory" do
         VCR.use_cassette('docs') do
           res = gh.diff('docs')
-          files = res.keys
+          files = res.keys.map(&:first)
           diffs = res.values.sort_by(&:to_s)
           expect(files).to match_array ["docs/migrations.md", "docs/quickstart.md"]
           expect(diffs.all?{ |diff| Diffy::Diff === diff }).to be true

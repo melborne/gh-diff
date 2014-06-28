@@ -81,7 +81,7 @@ module GhDiff
       result = {}
       items.map do |item1, item2|
         Thread.new(item1, item2) do |_item1, _item2|
-          result[_item1] = yield(_item1, _item2)
+          result[[_item1, _item2]] = yield(_item1, _item2)
         end
       end.each(&:join)
       result

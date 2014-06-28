@@ -40,13 +40,18 @@ module GhDiff
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
                                     comment_tag:opts[:comment_tag])
 
-      diffs.each do |file, diff|
+      diffs.each do |(f1, f2), diff|
+        header = <<-EOS
+--- #{f1}
++++ #{f2}
+
+        EOS
+
         if opts[:save]
           format = opts[:format]=='color' ? :text : opts[:format]
           content = diff.to_s(format)
           unless content.empty?
-            header = "#{file}\n\n"
-            save(header + content, opts[:save_dir], file)
+            save(header + content, opts[:save_dir], f1)
           else
             print "\e[32mno Diff on '#{file}'\e[0m\n"
           end
@@ -56,7 +61,7 @@ module GhDiff
             if opts[:name_only]
               print "\e[31mDiff found on '#{file}'\e[0m\n"
             else
-              print file, "\n\n"
+              print header
               print diff.to_s(opts[:format])
             end
           else
