@@ -4,6 +4,7 @@ require "stringio"
 require "fileutils"
 require "webmock"
 require "vcr"
+require "tildoc"
 
 module Helpers
   def source_root

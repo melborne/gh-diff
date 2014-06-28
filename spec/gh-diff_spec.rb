@@ -20,28 +20,28 @@ describe GhDiff::Diff do
   end
 
   before(:all) do
-    @diff_result =<<-EOS
- ---
- layout: docs
- title: Quick-start guide
--prev_section: old-home
--next_section: old-installation
-+prev_section: home
-+next_section: installation
- permalink: /docs/quickstart/
- ---
+    @diff_result = ~<<-EOS
+       ---
+       layout: docs
+       title: Quick-start guide
+      -prev_section: old-home
+      -next_section: old-installation
+      +prev_section: home
+      +next_section: installation
+       permalink: /docs/quickstart/
+       ---
  
     EOS
 
-    @diff_result2 =<<-EOS
- permalink: /docs/migrations/
- ---
+    @diff_result2 = ~<<-EOS
+       permalink: /docs/migrations/
+       ---
  
--add this line.
--
- If you’re switching to Jekyll from another blogging system, Jekyll’s importers
- can help you with the move. To learn more about importing your site to Jekyll,
- visit our [`jekyll-import` docs site](http://import.jekyllrb.com/docs/home/).
+      -add this line.
+      -
+       If you’re switching to Jekyll from another blogging system, Jekyll’s importers
+       can help you with the move. To learn more about importing your site to Jekyll,
+       visit our [`jekyll-import` docs site](http://import.jekyllrb.com/docs/home/).
     EOS
   end
 
