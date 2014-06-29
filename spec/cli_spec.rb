@@ -2,18 +2,20 @@ require 'spec_helper'
 
 describe GhDiff::CLI do
   before(:all) do
-    @diff_result =<<-EOS
-docs/quickstart.md
+    @diff_result = ~<<-EOS
+      Base revision: 3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8[refs/heads/master]
+      --- docs/quickstart.md
+      +++ docs/quickstart.md
 
- ---
- layout: docs
- title: Quick-start guide
-\e[31m-prev_section: old-home\e[0m
-\e[31m-next_section: old-installation\e[0m
-\e[32m+prev_section: home\e[0m
-\e[32m+next_section: installation\e[0m
- permalink: /docs/quickstart/
- ---
+       ---
+       layout: docs
+       title: Quick-start guide
+      \e[31m-prev_section: old-home\e[0m
+      \e[31m-next_section: old-installation\e[0m
+      \e[32m+prev_section: home\e[0m
+      \e[32m+next_section: installation\e[0m
+       permalink: /docs/quickstart/
+       ---
  
     EOS
   end

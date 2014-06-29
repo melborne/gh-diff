@@ -2,12 +2,22 @@ require "thor"
 
 module GhDiff
   class CLI < Thor
-    class_option :repo, aliases:'-g', desc:'target repository'
-    class_option :revision, aliases:'-r', default:'master', desc:'target revision'
-    class_option :dir, aliases:'-p', desc:'target file directory'
-    class_option :username, desc:'github username'
-    class_option :password, desc:'github password'
-    class_option :token, desc:'github API access token'
+    class_option :repo,
+                  aliases:'-g',
+                  desc:'target repository'
+    class_option :revision,
+                  aliases:'-r',
+                  default:'master',
+                  desc:'target revision'
+    class_option :dir,
+                  aliases:'-p',
+                  desc:'target file directory'
+    class_option :username,
+                  desc:'github username'
+    class_option :password,
+                  desc:'github password'
+    class_option :token,
+                  desc:'github API access token'
 
     desc "get FILE", "Get FILE content from github repository"
     def get(file)
@@ -26,12 +36,28 @@ module GhDiff
     end
 
     desc "diff FILE", "Compare FILE(s) between local and remote repository"
-    option :commentout, aliases:'-c', default:true, type: :boolean, desc:"compare html-commented texts in local file(s) with the remote"
-    option :comment_tag, aliases:'-t', default:'original'
-    option :format, aliases:'-f', default:'color', desc:"output format: any of text, color, html or html_simple"
-    option :save, aliases:'-s', default:false, type: :boolean
-    option :save_dir, default:'diff', desc:'save directory'
-    option :name_only, default:true, type: :boolean
+    option :commentout,
+            aliases:'-c',
+            default:true,
+            type: :boolean,
+            desc:"compare html-commented texts in local file(s) with the remote"
+    option :comment_tag,
+            aliases:'-t',
+            default:'original'
+    option :format,
+            aliases:'-f',
+            default:'color',
+            desc:"output format: any of text, color, html or html_simple"
+    option :save,
+            aliases:'-s',
+            default:false,
+            type: :boolean
+    option :save_dir,
+            default:'diff',
+            desc:'save directory'
+    option :name_only,
+            default:true,
+            type: :boolean
     def diff(file1, file2=file1)
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
@@ -40,27 +66,36 @@ module GhDiff
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
                                     comment_tag:opts[:comment_tag])
 
-      diffs.each do |file, diff|
+      ref = gh.ref(opts[:revision])
+      diffs.each do |(f1, f2), diff|
+        header = <<-EOS
+Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
+--- #{f1}
++++ #{f2}
+
+        EOS
+        diff_form = "#{f1} <-> #{f2} [%s:%s]" %
+                    [ref[:object][:sha][0,7], ref[:ref].match(/\w+$/).to_s]
+
         if opts[:save]
           format = opts[:format]=='color' ? :text : opts[:format]
           content = diff.to_s(format)
           unless content.empty?
-            header = "#{file}\n\n"
-            save(header + content, opts[:save_dir], file)
+            save(header + content, opts[:save_dir], f1)
           else
-            print "\e[32mno Diff on '#{file}'\e[0m\n"
+            print "\e[32mno Diff on\e[0m #{diff_form}\n"
           end
         else
           content = diff.to_s(:text)
           unless content.empty?
             if opts[:name_only]
-              print "\e[31mDiff found on '#{file}'\e[0m\n"
+              printf "\e[31mDiff found on\e[0m #{diff_form}\n"
             else
-              print file, "\n\n"
+              print header
               print diff.to_s(opts[:format])
             end
           else
-            print "\e[32mno Diff on '#{file}'\e[0m\n"
+            print "\e[32mno Diff on\e[0m #{diff_form}\n"
           end
         end
       end
