@@ -66,8 +66,10 @@ module GhDiff
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
                                     comment_tag:opts[:comment_tag])
 
+      ref = gh.ref(opts[:revision])
       diffs.each do |(f1, f2), diff|
         header = <<-EOS
+Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
 --- #{f1}
 +++ #{f2}
 
@@ -85,7 +87,8 @@ module GhDiff
           content = diff.to_s(:text)
           unless content.empty?
             if opts[:name_only]
-              print "\e[31mDiff found on '#{file}'\e[0m\n"
+              printf "\e[31mDiff found on '#{file}'\e(%s:%s)",
+                     ref[:object][:sha][0,7], ref[:ref].match(/\w+$/).to_s
             else
               print header
               print diff.to_s(opts[:format])

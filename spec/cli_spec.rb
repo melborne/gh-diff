@@ -3,6 +3,7 @@ require 'spec_helper'
 describe GhDiff::CLI do
   before(:all) do
     @diff_result = ~<<-EOS
+      Base revision: 3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8[refs/heads/master]
       --- docs/quickstart.md
       +++ docs/quickstart.md
 

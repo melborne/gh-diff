@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Fri, 27 Jun 2014 10:31:29 GMT
+      - Sun, 29 Jun 2014 00:24:06 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,13 +31,13 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '58'
+      - '55'
       X-Ratelimit-Reset:
-      - '1403868688'
+      - '1404004838'
       Cache-Control:
       - public, max-age=60, s-maxage=60
       Last-Modified:
-      - Fri, 27 Jun 2014 07:56:39 GMT
+      - Sat, 28 Jun 2014 21:20:09 GMT
       Etag:
       - '"cc900739c902114785938b70ec00be83"'
       Vary:
@@ -59,7 +59,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Github-Request-Id:
-      - DE962F8B:01FD:1AE44691:53AD4801
+      - DE962F8B:5BB9:2DC68ED:53AF5CA6
       Strict-Transport-Security:
       - max-age=31536000
       X-Content-Type-Options:
@@ -70,7 +70,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"name":"quickstart.md","path":"site/docs/quickstart.md","sha":"eedb976237a3f8aef6e3f0cc205fcab284370ef7","size":728,"url":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/quickstart.md?ref=master","html_url":"https://github.com/jekyll/jekyll/blob/master/site/docs/quickstart.md","git_url":"https://api.github.com/repos/jekyll/jekyll/git/blobs/eedb976237a3f8aef6e3f0cc205fcab284370ef7","type":"file","content":"LS0tCmxheW91dDogZG9jcwp0aXRsZTogUXVpY2stc3RhcnQgZ3VpZGUKcHJl\ndl9zZWN0aW9uOiBob21lCm5leHRfc2VjdGlvbjogaW5zdGFsbGF0aW9uCnBl\ncm1hbGluazogL2RvY3MvcXVpY2tzdGFydC8KLS0tCgpGb3IgdGhlIGltcGF0\naWVudCwgaGVyZSdzIGhvdyB0byBnZXQgYSBib2lsZXJwbGF0ZSBKZWt5bGwg\nc2l0ZSB1cCBhbmQgcnVubmluZy4KCnslIGhpZ2hsaWdodCBiYXNoICV9Cn4g\nJCBnZW0gaW5zdGFsbCBqZWt5bGwKfiAkIGpla3lsbCBuZXcgbXlibG9nCn4g\nJCBjZCBteWJsb2cKfi9teWJsb2cgJCBqZWt5bGwgc2VydmUKIyA9PiBOb3cg\nYnJvd3NlIHRvIGh0dHA6Ly9sb2NhbGhvc3Q6NDAwMAp7JSBlbmRoaWdobGln\naHQgJX0KClRoYXQncyBub3RoaW5nLCB0aG91Z2guIFRoZSByZWFsIG1hZ2lj\nIGhhcHBlbnMgd2hlbiB5b3Ugc3RhcnQgY3JlYXRpbmcgYmxvZwpwb3N0cywg\ndXNpbmcgdGhlIGZyb250LW1hdHRlciB0byBjb250cm9sIHRlbXBsYXRlcyBh\nbmQgbGF5b3V0cywgYW5kIHRha2luZwphZHZhbnRhZ2Ugb2YgYWxsIHRoZSBh\nd2Vzb21lIGNvbmZpZ3VyYXRpb24gb3B0aW9ucyBKZWt5bGwgbWFrZXMgYXZh\naWxhYmxlLgoKSWYgeW91J3JlIHJ1bm5pbmcgaW50byBwcm9ibGVtcywgZW5z\ndXJlIHlvdSBoYXZlIGFsbCB0aGUgW3JlcXVpcmVtZW50cwppbnN0YWxsZWRd\nW0luc3RhbGxhdGlvbl0uCgpbSW5zdGFsbGF0aW9uXTogL2RvY3MvaW5zdGFs\nbGF0aW9uLwo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/quickstart.md?ref=master","git":"https://api.github.com/repos/jekyll/jekyll/git/blobs/eedb976237a3f8aef6e3f0cc205fcab284370ef7","html":"https://github.com/jekyll/jekyll/blob/master/site/docs/quickstart.md"}}'
     http_version: 
-  recorded_at: Fri, 27 Jun 2014 10:31:29 GMT
+  recorded_at: Sun, 29 Jun 2014 00:24:06 GMT
 - request:
     method: get
     uri: https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master
@@ -92,7 +92,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Fri, 27 Jun 2014 10:31:29 GMT
+      - Sun, 29 Jun 2014 00:24:06 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -102,13 +102,13 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '57'
+      - '54'
       X-Ratelimit-Reset:
-      - '1403868688'
+      - '1404004838'
       Cache-Control:
       - public, max-age=60, s-maxage=60
       Last-Modified:
-      - Fri, 27 Jun 2014 07:56:39 GMT
+      - Sat, 28 Jun 2014 21:20:09 GMT
       Etag:
       - '"cc1f1604a33f46a76ee717a0bef0d0db"'
       Vary:
@@ -130,21 +130,21 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Github-Request-Id:
-      - DE962F8B:01FC:144ACD02:53AD4801
+      - DE962F8B:5BB7:18FD4B7:53AF5CA6
       Strict-Transport-Security:
       - max-age=31536000
       X-Content-Type-Options:
       - nosniff
       X-Served-By:
-      - a1d8c69b807c8e21f06cad9da377d1b0
+      - d818ddef80f4c7d10683dd483558952a
     body:
       encoding: UTF-8
       string: '{"name":"migrations.md","path":"site/docs/migrations.md","sha":"a080c6c6ee28720ea347b0e4fe0660e3e333d501","size":359,"url":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master","html_url":"https://github.com/jekyll/jekyll/blob/master/site/docs/migrations.md","git_url":"https://api.github.com/repos/jekyll/jekyll/git/blobs/a080c6c6ee28720ea347b0e4fe0660e3e333d501","type":"file","content":"LS0tCmxheW91dDogZG9jcwp0aXRsZTogQmxvZyBtaWdyYXRpb25zCnByZXZf\nc2VjdGlvbjogYXNzZXRzCm5leHRfc2VjdGlvbjogdGVtcGxhdGVzCnBlcm1h\nbGluazogL2RvY3MvbWlncmF0aW9ucy8KLS0tCgpJZiB5b3XigJlyZSBzd2l0\nY2hpbmcgdG8gSmVreWxsIGZyb20gYW5vdGhlciBibG9nZ2luZyBzeXN0ZW0s\nIEpla3lsbOKAmXMgaW1wb3J0ZXJzCmNhbiBoZWxwIHlvdSB3aXRoIHRoZSBt\nb3ZlLiBUbyBsZWFybiBtb3JlIGFib3V0IGltcG9ydGluZyB5b3VyIHNpdGUg\ndG8gSmVreWxsLAp2aXNpdCBvdXIgW2BqZWt5bGwtaW1wb3J0YCBkb2NzIHNp\ndGVdKGh0dHA6Ly9pbXBvcnQuamVreWxscmIuY29tL2RvY3MvaG9tZS8pLgo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/migrations.md?ref=master","git":"https://api.github.com/repos/jekyll/jekyll/git/blobs/a080c6c6ee28720ea347b0e4fe0660e3e333d501","html":"https://github.com/jekyll/jekyll/blob/master/site/docs/migrations.md"}}'
     http_version: 
-  recorded_at: Fri, 27 Jun 2014 10:31:29 GMT
+  recorded_at: Sun, 29 Jun 2014 00:24:06 GMT
 - request:
     method: get
-    uri: https://api.github.com/repos/jekyll/jekyll/contents/site/docs/quickstart.md?ref=master
+    uri: https://api.github.com/repos/jekyll/jekyll/git/refs/heads/master
     body:
       encoding: US-ASCII
       string: ''
@@ -163,7 +163,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Sat, 28 Jun 2014 05:41:27 GMT
+      - Sun, 29 Jun 2014 00:24:07 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -173,15 +173,17 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '59'
+      - '53'
       X-Ratelimit-Reset:
-      - '1403937687'
+      - '1404004838'
       Cache-Control:
       - public, max-age=60, s-maxage=60
       Last-Modified:
-      - Fri, 27 Jun 2014 21:51:16 GMT
+      - Sat, 28 Jun 2014 18:54:14 GMT
       Etag:
-      - '"cc900739c902114785938b70ec00be83"'
+      - '"8176d2e718f3b57d68b2969a1a663c4f"'
+      X-Poll-Interval:
+      - '300'
       Vary:
       - Accept
       - Accept-Encoding
@@ -201,16 +203,89 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Github-Request-Id:
-      - DE962F8B:5E0C:80D61E:53AE5587
+      - DE962F8B:5BB9:2DC6A29:53AF5CA7
       Strict-Transport-Security:
       - max-age=31536000
       X-Content-Type-Options:
       - nosniff
       X-Served-By:
-      - 88d924ed861736d2749ce1a55766cb53
+      - 62a1303ae95931e56e387e87d354bb24
     body:
       encoding: UTF-8
-      string: '{"name":"quickstart.md","path":"site/docs/quickstart.md","sha":"eedb976237a3f8aef6e3f0cc205fcab284370ef7","size":728,"url":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/quickstart.md?ref=master","html_url":"https://github.com/jekyll/jekyll/blob/master/site/docs/quickstart.md","git_url":"https://api.github.com/repos/jekyll/jekyll/git/blobs/eedb976237a3f8aef6e3f0cc205fcab284370ef7","type":"file","content":"LS0tCmxheW91dDogZG9jcwp0aXRsZTogUXVpY2stc3RhcnQgZ3VpZGUKcHJl\ndl9zZWN0aW9uOiBob21lCm5leHRfc2VjdGlvbjogaW5zdGFsbGF0aW9uCnBl\ncm1hbGluazogL2RvY3MvcXVpY2tzdGFydC8KLS0tCgpGb3IgdGhlIGltcGF0\naWVudCwgaGVyZSdzIGhvdyB0byBnZXQgYSBib2lsZXJwbGF0ZSBKZWt5bGwg\nc2l0ZSB1cCBhbmQgcnVubmluZy4KCnslIGhpZ2hsaWdodCBiYXNoICV9Cn4g\nJCBnZW0gaW5zdGFsbCBqZWt5bGwKfiAkIGpla3lsbCBuZXcgbXlibG9nCn4g\nJCBjZCBteWJsb2cKfi9teWJsb2cgJCBqZWt5bGwgc2VydmUKIyA9PiBOb3cg\nYnJvd3NlIHRvIGh0dHA6Ly9sb2NhbGhvc3Q6NDAwMAp7JSBlbmRoaWdobGln\naHQgJX0KClRoYXQncyBub3RoaW5nLCB0aG91Z2guIFRoZSByZWFsIG1hZ2lj\nIGhhcHBlbnMgd2hlbiB5b3Ugc3RhcnQgY3JlYXRpbmcgYmxvZwpwb3N0cywg\ndXNpbmcgdGhlIGZyb250LW1hdHRlciB0byBjb250cm9sIHRlbXBsYXRlcyBh\nbmQgbGF5b3V0cywgYW5kIHRha2luZwphZHZhbnRhZ2Ugb2YgYWxsIHRoZSBh\nd2Vzb21lIGNvbmZpZ3VyYXRpb24gb3B0aW9ucyBKZWt5bGwgbWFrZXMgYXZh\naWxhYmxlLgoKSWYgeW91J3JlIHJ1bm5pbmcgaW50byBwcm9ibGVtcywgZW5z\ndXJlIHlvdSBoYXZlIGFsbCB0aGUgW3JlcXVpcmVtZW50cwppbnN0YWxsZWRd\nW0luc3RhbGxhdGlvbl0uCgpbSW5zdGFsbGF0aW9uXTogL2RvY3MvaW5zdGFs\nbGF0aW9uLwo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/jekyll/jekyll/contents/site/docs/quickstart.md?ref=master","git":"https://api.github.com/repos/jekyll/jekyll/git/blobs/eedb976237a3f8aef6e3f0cc205fcab284370ef7","html":"https://github.com/jekyll/jekyll/blob/master/site/docs/quickstart.md"}}'
+      string: '{"ref":"refs/heads/master","url":"https://api.github.com/repos/jekyll/jekyll/git/refs/heads/master","object":{"sha":"3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8","type":"commit","url":"https://api.github.com/repos/jekyll/jekyll/git/commits/3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8"}}'
     http_version: 
-  recorded_at: Sat, 28 Jun 2014 05:41:27 GMT
+  recorded_at: Sun, 29 Jun 2014 00:24:07 GMT
+- request:
+    method: get
+    uri: https://api.github.com/repos/jekyll/jekyll/git/refs/heads/master
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 3.1.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Sun, 29 Jun 2014 00:24:08 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '52'
+      X-Ratelimit-Reset:
+      - '1404004838'
+      Cache-Control:
+      - public, max-age=60, s-maxage=60
+      Last-Modified:
+      - Sat, 28 Jun 2014 18:54:14 GMT
+      Etag:
+      - '"8176d2e718f3b57d68b2969a1a663c4f"'
+      X-Poll-Interval:
+      - '300'
+      Vary:
+      - Accept
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3; format=json
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Github-Request-Id:
+      - DE962F8B:5BB7:18FD5E3:53AF5CA8
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Served-By:
+      - 6d7de9e645814cac34ea2a8d72ba3141
+    body:
+      encoding: UTF-8
+      string: '{"ref":"refs/heads/master","url":"https://api.github.com/repos/jekyll/jekyll/git/refs/heads/master","object":{"sha":"3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8","type":"commit","url":"https://api.github.com/repos/jekyll/jekyll/git/commits/3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8"}}'
+    http_version: 
+  recorded_at: Sun, 29 Jun 2014 00:24:08 GMT
 recorded_with: VCR 2.9.2
