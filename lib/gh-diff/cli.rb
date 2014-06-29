@@ -74,6 +74,8 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
 +++ #{f2}
 
         EOS
+        diff_form = "#{f1} <-> #{f2} [%s:%s]" %
+                    [ref[:object][:sha][0,7], ref[:ref].match(/\w+$/).to_s]
 
         if opts[:save]
           format = opts[:format]=='color' ? :text : opts[:format]
@@ -81,20 +83,19 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
           unless content.empty?
             save(header + content, opts[:save_dir], f1)
           else
-            print "\e[32mno Diff on '#{file}'\e[0m\n"
+            print "\e[32mno Diff on\e[0m #{diff_form}\n"
           end
         else
           content = diff.to_s(:text)
           unless content.empty?
             if opts[:name_only]
-              printf "\e[31mDiff found on '#{file}'\e(%s:%s)",
-                     ref[:object][:sha][0,7], ref[:ref].match(/\w+$/).to_s
+              printf "\e[31mDiff found on\e[0m #{diff_form}\n"
             else
               print header
               print diff.to_s(opts[:format])
             end
           else
-            print "\e[32mno Diff on '#{file}'\e[0m\n"
+            print "\e[32mno Diff on\e[0m #{diff_form}\n"
           end
         end
       end
