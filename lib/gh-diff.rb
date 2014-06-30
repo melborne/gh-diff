@@ -58,6 +58,10 @@ module GhDiff
       local = Togglate.commentout(local, tag:comment_tag)[0] if commentout
       remote = get(file2)
       Diffy::Diff.new(local, remote, opts)
+    rescue Errno::ENOENT
+      :LocalNotFound
+    rescue Octokit::NotFound
+      :RemoteNotFound
     end
 
     def get_contents(repo, path, ref)

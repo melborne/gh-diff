@@ -68,6 +68,7 @@ module GhDiff
 
       ref = gh.ref(opts[:revision])
       diffs.each do |(f1, f2), diff|
+        next if file_not_found?(f1, f2, diff)
         header = <<-EOS
 Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
 --- #{f1}
@@ -144,6 +145,19 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
         mkdir(File.dirname path)
         File.write(path, content)
         print "\e[32mDiff saved at '#{path}'\e[0m\n"
+      end
+
+      def file_not_found?(f1, f2, content)
+        case content
+        when :RemoteNotFound
+          print "\e[31m#{f2} not found on remote\e[0m\n"
+          true
+        when :LocalNotFound
+          print "\e[31m#{f1} not found on local\e[0m\n"
+          true
+        else
+          false
+        end
       end
     end
   end
