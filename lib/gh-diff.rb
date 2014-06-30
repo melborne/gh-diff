@@ -74,7 +74,7 @@ module GhDiff
 
     def build_file_pairs(file1, file2, dir:false)
       if dir
-        fs = Dir.glob("#{file1}/*")
+        fs = Dir.glob("#{file1}/*").select { |f| File.file? f }
         fs.zip(fs)
       else
         [[file1, file2]]
