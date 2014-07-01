@@ -54,7 +54,7 @@ describe GhDiff::CLI do
       VCR.use_cassette('quickstart') do
         ARGV.replace %w(diff docs/quickstart.md
                         --repo=jekyll/jekyll --dir=site
-                        --commentout=false --name_only=false)
+                        --name_only=false)
         GhDiff::CLI.start
         expect($stdout.string).to eq @diff_result
       end
@@ -65,7 +65,7 @@ describe GhDiff::CLI do
         VCR.use_cassette('save-diff') do
           ARGV.replace %w(diff docs/quickstart.md
                         --repo=jekyll/jekyll --dir=site
-                        --no-commentout --save)
+                        --save)
           GhDiff::CLI.start
           path = 'diff/docs/quickstart.diff'
           expect($stdout.string).to match(/Diff saved at '#{path}'/)
@@ -78,7 +78,7 @@ describe GhDiff::CLI do
         VCR.use_cassette('save-diffs') do
           ARGV.replace %w(diff docs
                         --repo=jekyll/jekyll --dir=site
-                        --no-commentout --save)
+                        --save)
           GhDiff::CLI.start
           paths = ["diff/docs/quickstart.diff", "diff/docs/migrations.diff"]
           paths.each { |f| expect(File.exist? f).to be true }

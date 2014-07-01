@@ -38,7 +38,7 @@ module GhDiff
     desc "diff FILE", "Compare FILE(s) between local and remote repository"
     option :commentout,
             aliases:'-c',
-            default:true,
+            default:false,
             type: :boolean,
             desc:"compare html-commented texts in local file(s) with the remote"
     option :comment_tag,
