@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = GhDiff::VERSION
   spec.authors       = ["kyoendo"]
   spec.email         = ["postagie@gmail.com"]
-  spec.summary       = %q{Diff files between local and a github repository.}
-  spec.description   = %q{Diff files between local and a github repository.}
+  spec.summary       = %q{Take diffs between local and a github repository files.}
+  spec.description   = %q{Take diffs between local and a github repository files.}
   spec.homepage      = "https://github.com/melborne/gh-diff"
   spec.license       = "MIT"
 
