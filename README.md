@@ -91,8 +91,11 @@ Also, you can set them in `.env` file in the root of your project.
     REPO=jekyll/jekyll
     DIR=site
 
-ENVs in `.env` overwrite global ENVs.
+ENVs in `.env` overwrite global ENVs with prefix `GH_`.
 
+There is rate limit for accessing GitHub API. While you can make it
+up with Basic Authentication(username and password) or API token, 
+setting them are preferable.
 
 ## Contributing
 
