@@ -262,6 +262,21 @@ up with Basic Authentication(username and password) or API token,
 setting them are preferable.
 -->
 
+## 感謝
+
+<!--original
+## Thank you
+-->
+
+`Gh-Diff`は[jekyllrb-ja](https://github.com/jekyllrb-ja/jekyllrb-ja.github.io)プロジェクトという、[Jekyllサイト](http://jekyllrb.com/)の日本語版の提供を目的としたプロジェクトで生まれました。`Gh-Diff`の基本的なアイディアはこのプロジェクトのRakefileの中にある`togglate task`から来ており、これはgosyujin(kk_Ataka)により作られました。彼に感謝します。
+
+<!--original
+`Gh-Diff` is born through [jekyllrb-ja](https://github.com/jekyllrb-ja/jekyllrb-ja.github.io) project,
+whose aim is to provide a [Jekyll site](http://jekyllrb.com/) in Japanese.
+The basic idea of `Gh-Diff` is from `togglate task in Rakefile` of the project
+which is created by gosyujin(kk_Ataka). I want to thank him.
+-->
+
 ## 貢献
 
 <!--original

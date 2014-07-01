@@ -97,6 +97,13 @@ There is rate limit for accessing GitHub API. While you can make it
 up with Basic Authentication(username and password) or API token, 
 setting them are preferable.
 
+## Thank you
+
+`Gh-Diff` is born through [jekyllrb-ja](https://github.com/jekyllrb-ja/jekyllrb-ja.github.io) project,
+whose aim is to provide a [Jekyll site](http://jekyllrb.com/) in Japanese.
+The basic idea of `Gh-Diff` is from `togglate task in Rakefile` of the project
+which is created by gosyujin(kk_Ataka). I want to thank him.
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/gh-diff/fork )
