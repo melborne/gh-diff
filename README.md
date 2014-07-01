@@ -23,7 +23,7 @@ Gh-Diff have `gh-diff` terminal command.
 ```bash
 % gh-diff
 Commands:
-  gh-diff diff LOCAL\_FILE [REMOTE\_FILE]  # Compare FILE(s) between local and remote repository. LOCAL_FILE can be DIRECTORY.
+  gh-diff diff LOCAL_FILE [REMOTE_FILE]  # Compare FILE(s) between local and remote repository. LOCAL_FILE can be DIRECTORY.
   gh-diff dir_diff DIRECTORY  # Print added and removed files in remote repository
   gh-diff get FILE            # Get FILE content from github repository
   gh-diff help [COMMAND]      # Describe available commands or one specific command
