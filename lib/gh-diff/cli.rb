@@ -35,7 +35,7 @@ module GhDiff
       exit(1)
     end
 
-    desc "diff FILE", "Compare FILE(s) between local and remote repository"
+    desc "diff LOCAL_FILE [REMOTE_FILE]", "Compare FILE(s) between local and remote repository. LOCAL_FILE can be DIRECTORY."
     option :commentout,
             aliases:'-c',
             default:false,
