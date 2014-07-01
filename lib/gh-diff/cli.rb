@@ -11,7 +11,7 @@ module GhDiff
                   desc:'target revision'
     class_option :dir,
                   aliases:'-p',
-                  desc:'target file directory'
+                  desc:'target remote directory'
     class_option :username,
                   desc:'github username'
     class_option :password,
