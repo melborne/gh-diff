@@ -66,7 +66,8 @@ module GhDiff
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
                                     comment_tag:opts[:comment_tag])
 
-      ref = gh.ref(opts[:revision])
+      ref = gh.ref(opts[:revision], repo:opts[:repo])
+
       diffs.each do |(f1, f2), diff|
         next if file_not_found?(f1, f2, diff)
         header = <<-EOS

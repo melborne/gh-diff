@@ -17,9 +17,9 @@ module GhDiff
       @dir = dir
     end
 
-    def get(file)
-      path = build_path(@dir, file)
-      f = get_contents(@repo, path, @revision)
+    def get(file, repo:@repo, revision:@revision, dir:@dir, **opts)
+      path = build_path(dir, file)
+      f = get_contents(repo, path, revision)
       Base64.decode64(f.content)
     end
 
@@ -34,18 +34,20 @@ module GhDiff
       diffs
     end
 
-    def dir_diff(dir)
-      local_files = Dir.glob("#{dir}/*").map { |f| File.basename f }
-      remote_path = build_path(@dir, dir)
-      remote_files = get_contents(@repo, remote_path, @revision).map(&:name)
+    def dir_diff(directory, repo:@repo, revision:@revision, dir:@dir)
+      local_files = Dir.glob("#{directory}/*").map { |f| File.basename f }
+      remote_path = build_path(dir, directory)
+      remote_files = get_contents(repo, remote_path, revision).map(&:name)
       added = remote_files - local_files
       removed = local_files - remote_files
       [added, removed]
     end
 
-    def ref(ref='master')
+    def ref(ref='master', repo:@repo)
       type = ref.match(/^v\d/) ? :tags : :heads
-      get_ref(@repo, "#{type}/#{ref}")
+      get_ref(repo, "#{type}/#{ref}")
+    rescue Octokit::NotFound
+      {ref:'', object:{sha:ref}}
     end
 
     private
@@ -56,7 +58,7 @@ module GhDiff
     def _diff(file1, file2, commentout, comment_tag, opts)
       local = File.read(file1)
       local = Togglate.commentout(local, tag:comment_tag)[0] if commentout
-      remote = get(file2)
+      remote = get(file2, opts)
       Diffy::Diff.new(local, remote, opts)
     rescue Errno::ENOENT
       :LocalNotFound
