@@ -94,7 +94,7 @@ Also, you can set them in `.env` file in the root of your project.
 ENVs in `.env` overwrite global ENVs with prefix `GH_`.
 
 There is rate limit for accessing GitHub API. While you can make it
-up with Basic Authentication(username and password) or API token, 
+up with Basic Authentication(username and password) or [Personal API tokens](https://github.com/blog/1509-personal-api-tokens "Personal API tokens"), 
 setting them are preferable.
 
 ## Thank you
