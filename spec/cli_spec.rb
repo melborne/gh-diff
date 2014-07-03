@@ -38,6 +38,7 @@ describe GhDiff::CLI do
                         --repo=jekyll/jekyll --dir=site)
         GhDiff::CLI.start
         expect($stdout.string).to match(/title: Quick-start guide/)
+        expect($stdout.string).not_to match(/Base revision: .*master/)
       end
     end
 

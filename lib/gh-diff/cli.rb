@@ -30,9 +30,10 @@ module GhDiff
       github_auth(opts[:username], opts[:password], opts[:token])
 
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
-      ref = gh.ref(opts[:revision], repo:opts[:repo])
-
-      print "Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]\n"
+      if opts[:ref]
+        ref = gh.ref(opts[:revision], repo:opts[:repo])
+        print "Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]\n"
+      end
       print gh.get(file)
     rescue ::Octokit::NotFound
       path = (dir=opts[:dir]) ? "#{dir}/#{file}" : file
