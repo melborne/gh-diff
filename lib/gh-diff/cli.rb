@@ -20,11 +20,19 @@ module GhDiff
                   desc:'github API access token'
 
     desc "get FILE", "Get FILE content from github repository"
+    option :ref,
+           aliases:'-f',
+           default:false,
+           type: :boolean,
+           desc:'Print reference data'
     def get(file)
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
 
       gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
+      ref = gh.ref(opts[:revision], repo:opts[:repo])
+
+      print "Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]\n"
       print gh.get(file)
     rescue ::Octokit::NotFound
       path = (dir=opts[:dir]) ? "#{dir}/#{file}" : file

@@ -47,6 +47,19 @@ describe GhDiff::CLI do
         expect { GhDiff::CLI.start }.to raise_error(SystemExit)
       end
     end
+
+    context "with ref option" do
+      it "also prints reference data of the file" do
+        VCR.use_cassette 'quickstart-ref' do
+          ARGV.replace %w(get docs/quickstart.md
+                          --repo=jekyll/jekyll --dir=site
+                          --ref)
+          GhDiff::CLI.start
+          expect($stdout.string).to match(/title: Quick-start guide/)
+          expect($stdout.string).to match(/Base revision: 4d8dab.*master/)
+        end
+      end
+    end
   end
 
   describe "diff" do
