@@ -1,5 +1,7 @@
 # Gh-Diff
 
+[![Build Status](https://travis-ci.org/melborne/gh-diff.svg?branch=master)](https://travis-ci.org/melborne/gh-diff)
+
 Take diffs between local and a github repository files.
 
 ## Installation
