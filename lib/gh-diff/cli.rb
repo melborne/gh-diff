@@ -133,6 +133,12 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
       end
     end
 
+    desc "version", "Show gh-diff version"
+    def version
+      puts "gh-diff #{GhDiff::VERSION} (c) 2014 kyoendo"
+    end
+    map "-v" => :version
+
     @@login = nil
     no_tasks do
       def github_auth(username, password, token)
