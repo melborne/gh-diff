@@ -156,8 +156,9 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
       end
 
       def save(content, save_dir, file)
-        file = File.join(File.dirname(file), (File.basename(file, '.*') + '.diff'))
-        path = File.join(save_dir, file)
+        dir = (d=File.dirname(file))=='.' ? '' : d
+        file = File.basename(file, '.*') + '.diff'
+        path = File.join(save_dir, dir, file)
         mkdir(File.dirname path)
         File.write(path, content)
         print "\e[32mDiff saved at '#{path}'\e[0m\n"
