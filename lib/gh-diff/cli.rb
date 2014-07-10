@@ -29,15 +29,12 @@ module GhDiff
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
 
-      gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
+      gh = init_ghdiff(opts[:repo], opts[:revision], opts[:dir])
       if opts[:ref]
         ref = gh.ref(opts[:revision], repo:opts[:repo])
         print "Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]\n"
       end
       print gh.get(file)
-    rescue GhDiff::RepositoryNameError
-      puts "Repository should be specified with 'repo' option"
-      exit(1)
     rescue ::Octokit::NotFound
       path = (dir=opts[:dir]) ? "#{dir}/#{file}" : file
       puts "File not found at remote: '#{path}'"
@@ -74,7 +71,7 @@ module GhDiff
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
 
-      gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
+      gh = init_ghdiff(opts[:repo], opts[:revision], opts[:dir])
       diffs = gh.diff(file1, file2, commentout:opts[:commentout],
                                     comment_tag:opts[:comment_tag])
 
@@ -113,9 +110,6 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
           end
         end
       end
-    rescue GhDiff::RepositoryNameError
-      puts "Repository should be specified with 'repo' option"
-      exit(1)
     end
 
     desc "dir_diff DIRECTORY", "Print added and removed files in remote repository"
@@ -123,7 +117,7 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
 
-      gh = Diff.new(opts[:repo], revision:opts[:revision], dir:opts[:dir])
+      gh = init_ghdiff(opts[:repo], opts[:revision], opts[:dir])
       added, removed = gh.dir_diff(dir)
       if [added, removed].all?(&:empty?)
         puts "\e[33mNothing changed\e[0m"
@@ -137,9 +131,6 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
           puts removed.map { |f| "  \e[31m" + f + "\e[0m" }
         end
       end
-    rescue GhDiff::RepositoryNameError
-      puts "Repository should be specified with 'repo' option"
-      exit(1)
     end
 
     desc "version", "Show gh-diff version"
@@ -150,6 +141,13 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
 
     @@login = nil
     no_tasks do
+      def init_ghdiff(repo, rev, dir)
+        Diff.new(repo, revision:rev, dir:dir)
+      rescue GhDiff::RepositoryNameError
+        puts "Repository should be specified with 'repo' option"
+        exit(1)
+      end
+
       def github_auth(username, password, token)
         return true if @@login
         return false unless token || [username, password].all?
