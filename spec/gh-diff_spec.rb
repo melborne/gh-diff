@@ -59,6 +59,14 @@ describe GhDiff::Diff do
     Dir.chdir(@original_dir)
   end
 
+  describe ".new" do
+    context "without repo" do
+      it "raises an error" do
+        expect{ GhDiff::Diff.new '' }.to raise_error(GhDiff::RepositoryNameError)
+      end
+    end
+  end
+
   describe "#get" do
     it "returns a file content" do
       VCR.use_cassette('quickstart') do

@@ -9,9 +9,11 @@ require "diffy"
 require "togglate"
 
 module GhDiff
+  class RepositoryNameError < StandardError; end
   class Diff
     attr_accessor :repo, :revision, :dir
     def initialize(repo, revision:'master', dir:nil)
+      raise RepositoryNameError if repo.nil? || repo.empty?
       @repo = repo
       @revision = revision
       @dir = dir

@@ -35,6 +35,9 @@ module GhDiff
         print "Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]\n"
       end
       print gh.get(file)
+    rescue GhDiff::RepositoryNameError
+      puts "Repository should be specified with 'repo' option"
+      exit(1)
     rescue ::Octokit::NotFound
       path = (dir=opts[:dir]) ? "#{dir}/#{file}" : file
       puts "File not found at remote: '#{path}'"
@@ -110,6 +113,9 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
           end
         end
       end
+    rescue GhDiff::RepositoryNameError
+      puts "Repository should be specified with 'repo' option"
+      exit(1)
     end
 
     desc "dir_diff DIRECTORY", "Print added and removed files in remote repository"
@@ -131,6 +137,9 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
           puts removed.map { |f| "  \e[31m" + f + "\e[0m" }
         end
       end
+    rescue GhDiff::RepositoryNameError
+      puts "Repository should be specified with 'repo' option"
+      exit(1)
     end
 
     desc "version", "Show gh-diff version"

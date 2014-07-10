@@ -49,6 +49,12 @@ describe GhDiff::CLI do
       end
     end
 
+    it "raises an error when repo is empty" do
+      ARGV.replace %w(get docs/quickstart.md --repo=)
+      expect { GhDiff::CLI.start }.to raise_error(SystemExit)
+      expect($stdout.string).to match(/Repository should/)
+    end
+
     context "with ref option" do
       it "also prints reference data of the file" do
         VCR.use_cassette 'quickstart-ref' do
@@ -72,6 +78,12 @@ describe GhDiff::CLI do
         GhDiff::CLI.start
         expect($stdout.string).to eq @diff_result
       end
+    end
+
+    it "raises an error when repo is empty" do
+      ARGV.replace %w(diff docs/quickstart.md --repo=)
+      expect { GhDiff::CLI.start }.to raise_error(SystemExit)
+      expect($stdout.string).to match(/Repository should/)
     end
 
     context "with save option" do
@@ -111,6 +123,12 @@ describe GhDiff::CLI do
         GhDiff::CLI.start
         expect($stdout.string).to match(/New files:.*collections.md/m)
       end
+    end
+
+    it "raises an error when repo is empty" do
+      ARGV.replace %w(dir_diff docs/quickstart.md --repo=)
+      expect { GhDiff::CLI.start }.to raise_error(SystemExit)
+      expect($stdout.string).to match(/Repository should/)
     end
   end
 end
