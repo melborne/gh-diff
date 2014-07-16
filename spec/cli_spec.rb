@@ -94,7 +94,7 @@ describe GhDiff::CLI do
                         --save)
           GhDiff::CLI.start
           path = 'diff/docs/quickstart.diff'
-          expect($stdout.string).to match(/Diff saved at '#{path}'/)
+          expect($stdout.string).to match(/File saved at '#{path}'/)
           expect(File.exist? path).to be true
           expect(File.read path).to match(/-prev_section: old-home/)
         end
@@ -129,6 +129,20 @@ describe GhDiff::CLI do
       ARGV.replace %w(dir_diff docs/quickstart.md --repo=)
       expect { GhDiff::CLI.start }.to raise_error(SystemExit)
       expect($stdout.string).to match(/Repository should/)
+    end
+
+    context "with save option" do
+      it "saves new files" do
+        VCR.use_cassette('save-dir-diff') do
+          ARGV.replace %w(dir_diff bin
+                          --repo=melborne/gh-diff
+                          --save)
+          GhDiff::CLI.start
+          path = "diff/bin/gh-diff"
+          expect(File.exist? path).to be true
+          expect(File.read path).to match(/require.*gh-diff/)
+        end
+      end
     end
   end
 end

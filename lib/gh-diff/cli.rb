@@ -113,6 +113,13 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
     end
 
     desc "dir_diff DIRECTORY", "Print added and removed files in remote repository"
+    option :save,
+            aliases:'-s',
+            default:false,
+            type: :boolean
+    option :save_dir,
+            default:'diff',
+            desc:'save directory'
     def dir_diff(dir)
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
@@ -125,6 +132,15 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
         if added.any?
           puts "\e[33mNew files:\e[0m"
           puts added.map { |f| "  \e[32m" + f + "\e[0m" }
+          if opts[:save]
+            added.each do |f|
+              path = File.join(dir, f)
+              content = gh.get(path)
+              unless content.empty?
+                save(content, opts[:save_dir], path, File.extname(path))
+              end
+            end
+          end
         end
         if removed.any?
           puts "\e[33mRemoved files:\e[0m"
@@ -162,13 +178,13 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
       end
 
-      def save(content, save_dir, file)
+      def save(content, save_dir, file, ext='.diff')
         dir = (d=File.dirname(file))=='.' ? '' : d
-        file = File.basename(file, '.*') + '.diff'
+        file = File.basename(file, '.*') + ext
         path = File.join(save_dir, dir, file)
         mkdir(File.dirname path)
         File.write(path, content)
-        print "\e[32mDiff saved at '#{path}'\e[0m\n"
+        print "\e[32mFile saved at '#{path}'\e[0m\n"
       end
 
       def file_not_found?(f1, f2, content)
