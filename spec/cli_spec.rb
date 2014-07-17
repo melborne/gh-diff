@@ -143,6 +143,20 @@ describe GhDiff::CLI do
           expect(File.read path).to match(/require.*gh-diff/)
         end
       end
+
+      context "with ref option" do
+        it "add base revision number in the YAML front-matter" do
+          VCR.use_cassette('save-dir-diff-ref') do
+            ARGV.replace %w(dir_diff bin
+                            --repo=melborne/gh-diff
+                            --save --ref)
+            GhDiff::CLI.start
+            path = "diff/bin/gh-diff"
+            expect(File.exist? path).to be true
+            expect(File.read path).to match(/Base revision: 3c8be5d3/)
+          end
+        end
+      end
     end
   end
 end

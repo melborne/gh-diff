@@ -32,7 +32,7 @@ module GhDiff
       gh = init_ghdiff(opts[:repo], opts[:revision], opts[:dir])
       if opts[:ref]
         ref = gh.ref(opts[:revision], repo:opts[:repo])
-        print "Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]\n"
+        print ref_format(ref)
       end
       print gh.get(file)
     rescue ::Octokit::NotFound
@@ -79,12 +79,7 @@ module GhDiff
 
       diffs.each do |(f1, f2), diff|
         next if file_not_found?(f1, f2, diff)
-        header = <<-EOS
-Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
---- #{f1}
-+++ #{f2}
-
-        EOS
+        header = "#{ref_format(ref)}--- #{f1}\n+++ #{f2}\n\n"
         diff_form = "#{f1} <-> #{f2} [%s:%s]" %
                     [ref[:object][:sha][0,7], ref[:ref].match(/\w+$/).to_s]
 
@@ -120,6 +115,11 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
     option :save_dir,
             default:'diff',
             desc:'save directory'
+    option :ref,
+           aliases:'-f',
+           default:false,
+           type: :boolean,
+           desc:'Add reference data into YAML front-matter of a file to be saved'
     def dir_diff(dir)
       opts = Option.new(options).with_env
       github_auth(opts[:username], opts[:password], opts[:token])
@@ -136,6 +136,10 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
             added.each do |f|
               path = File.join(dir, f)
               content = gh.get(path)
+              if opts[:ref]
+                content = add_reference(gh, opts[:revision],
+                                            opts[:repo], content)
+              end
               unless content.empty?
                 save(content, opts[:save_dir], path, File.extname(path))
               end
@@ -185,6 +189,20 @@ Base revision: #{ref[:object][:sha]}[#{ref[:ref]}]
         mkdir(File.dirname path)
         File.write(path, content)
         print "\e[32mFile saved at '#{path}'\e[0m\n"
+      end
+
+      def add_reference(ghdiff, revision, repo, content)
+        ref = ghdiff.ref(revision, repo:repo)
+        yfm_re = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
+        if md = content.match(yfm_re)
+          md[1] + ref_format(ref, 'base_revision:') + md[2] + md.post_match
+        else
+          ref_format(ref) + content
+        end
+      end
+
+      def ref_format(ref, head="Base revision:")
+        "#{head} #{ref[:object][:sha]}[#{ref[:ref]}]\n"
       end
 
       def file_not_found?(f1, f2, content)
