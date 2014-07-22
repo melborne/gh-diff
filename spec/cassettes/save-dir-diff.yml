@@ -10,7 +10,7 @@ http_interactions:
       Accept:
       - application/vnd.github.v3+json
       User-Agent:
-      - Octokit Ruby Gem 3.1.2
+      - Octokit Ruby Gem 3.2.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Wed, 16 Jul 2014 01:04:14 GMT
+      - Tue, 22 Jul 2014 12:54:10 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,13 +31,13 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '57'
+      - '58'
       X-Ratelimit-Reset:
-      - '1405475907'
+      - '1406035503'
       Cache-Control:
       - public, max-age=60, s-maxage=60
       Last-Modified:
-      - Sun, 06 Jul 2014 14:29:03 GMT
+      - Sun, 20 Jul 2014 13:05:22 GMT
       Etag:
       - '"a98e37e86a4246a85b31e0297c2b068b"'
       Vary:
@@ -59,18 +59,18 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Github-Request-Id:
-      - DE962F8B:5BD6:B8A7707:53C5CF8E
+      - DE962F8B:72A7:2E2F590:53CE5EF1
       Strict-Transport-Security:
       - max-age=31536000; includeSubdomains
       X-Content-Type-Options:
       - nosniff
       X-Served-By:
-      - 971af40390ac4398fcdd45c8dab0fbe7
+      - 6d7de9e645814cac34ea2a8d72ba3141
     body:
       encoding: UTF-8
       string: '[{"name":"gh-diff","path":"bin/gh-diff","sha":"97f13c6aafe6520b33960b32c398e4c8bbeb4bf7","size":64,"url":"https://api.github.com/repos/melborne/gh-diff/contents/bin/gh-diff?ref=master","html_url":"https://github.com/melborne/gh-diff/blob/master/bin/gh-diff","git_url":"https://api.github.com/repos/melborne/gh-diff/git/blobs/97f13c6aafe6520b33960b32c398e4c8bbeb4bf7","type":"file","_links":{"self":"https://api.github.com/repos/melborne/gh-diff/contents/bin/gh-diff?ref=master","git":"https://api.github.com/repos/melborne/gh-diff/git/blobs/97f13c6aafe6520b33960b32c398e4c8bbeb4bf7","html":"https://github.com/melborne/gh-diff/blob/master/bin/gh-diff"}}]'
     http_version: 
-  recorded_at: Wed, 16 Jul 2014 01:04:14 GMT
+  recorded_at: Tue, 22 Jul 2014 12:54:10 GMT
 - request:
     method: get
     uri: https://api.github.com/repos/melborne/gh-diff/contents/bin/gh-diff?ref=master
@@ -81,7 +81,7 @@ http_interactions:
       Accept:
       - application/vnd.github.v3+json
       User-Agent:
-      - Octokit Ruby Gem 3.1.2
+      - Octokit Ruby Gem 3.2.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -92,7 +92,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Wed, 16 Jul 2014 01:04:15 GMT
+      - Tue, 22 Jul 2014 12:54:10 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -102,13 +102,13 @@ http_interactions:
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '56'
+      - '57'
       X-Ratelimit-Reset:
-      - '1405475907'
+      - '1406035503'
       Cache-Control:
       - public, max-age=60, s-maxage=60
       Last-Modified:
-      - Thu, 10 Jul 2014 01:28:49 GMT
+      - Tue, 22 Jul 2014 12:45:01 GMT
       Etag:
       - '"ea0aae4ec6b8ddf249d9c8f9c21e8f90"'
       Vary:
@@ -130,16 +130,16 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Github-Request-Id:
-      - DE962F8B:5BD7:F28324F:53C5CF8E
+      - DE962F8B:72AA:16E1FD0:53CE5EF2
       Strict-Transport-Security:
       - max-age=31536000; includeSubdomains
       X-Content-Type-Options:
       - nosniff
       X-Served-By:
-      - 03d91026ad8428f4d9966d7434f9d82e
+      - d818ddef80f4c7d10683dd483558952a
     body:
       encoding: UTF-8
       string: '{"name":"gh-diff","path":"bin/gh-diff","sha":"97f13c6aafe6520b33960b32c398e4c8bbeb4bf7","size":64,"url":"https://api.github.com/repos/melborne/gh-diff/contents/bin/gh-diff?ref=master","html_url":"https://github.com/melborne/gh-diff/blob/master/bin/gh-diff","git_url":"https://api.github.com/repos/melborne/gh-diff/git/blobs/97f13c6aafe6520b33960b32c398e4c8bbeb4bf7","type":"file","content":"IyEvdXNyL2Jpbi9lbnYgcnVieQoKcmVxdWlyZSAnZ2gtZGlmZicKCkdoRGlm\nZjo6Q0xJLnN0YXJ0KEFSR1YpCg==\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/melborne/gh-diff/contents/bin/gh-diff?ref=master","git":"https://api.github.com/repos/melborne/gh-diff/git/blobs/97f13c6aafe6520b33960b32c398e4c8bbeb4bf7","html":"https://github.com/melborne/gh-diff/blob/master/bin/gh-diff"}}'
     http_version: 
-  recorded_at: Wed, 16 Jul 2014 01:04:15 GMT
+  recorded_at: Tue, 22 Jul 2014 12:54:11 GMT
 recorded_with: VCR 2.9.2

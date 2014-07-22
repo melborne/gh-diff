@@ -159,7 +159,7 @@ describe GhDiff::CLI do
             GhDiff::CLI.start
             path = "diff/bin/gh-diff"
             expect(File.exist? path).to be true
-            expect(File.read path).to match(/Base revision: 3c8be5d3/)
+            expect(File.read path).to match(/Base revision: 36e6c8/)
           end
         end
       end
