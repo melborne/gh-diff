@@ -162,6 +162,9 @@ module GhDiff
           end
         end
       end
+    rescue GhDiff::NoDirectoryError
+      puts "Directory not found: `#{dir}`"
+      exit(1)
     end
 
     desc "version", "Show gh-diff version"

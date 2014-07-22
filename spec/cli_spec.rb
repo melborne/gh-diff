@@ -126,9 +126,15 @@ describe GhDiff::CLI do
     end
 
     it "raises an error when repo is empty" do
-      ARGV.replace %w(dir_diff docs/quickstart.md --repo=)
+      ARGV.replace %w(dir_diff docs --repo=)
       expect { GhDiff::CLI.start }.to raise_error(SystemExit)
       expect($stdout.string).to match(/Repository should/)
+    end
+
+    it "raises an error when directory not exsit" do
+      ARGV.replace %w(dir_diff docs/hello --repo=jekyll/jekyll --dir=site)
+      expect { GhDiff::CLI.start }.to raise_error(SystemExit)
+      expect($stdout.string).to match(/Directory not found/)
     end
 
     context "with save option" do

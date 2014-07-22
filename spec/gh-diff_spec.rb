@@ -125,6 +125,10 @@ describe GhDiff::Diff do
         expect(removed).to be_empty
       end
     end
+
+    it "raise NoDirectoryError" do
+      expect{ gh.dir_diff 'no_such_dir'}.to raise_error(GhDiff::NoDirectoryError)
+    end
   end
 
   describe "#ref" do

@@ -10,6 +10,7 @@ require "togglate"
 
 module GhDiff
   class RepositoryNameError < StandardError; end
+  class NoDirectoryError < StandardError; end
   class Diff
     attr_accessor :repo, :revision, :dir
     def initialize(repo, revision:'master', dir:nil)
@@ -37,6 +38,7 @@ module GhDiff
     end
 
     def dir_diff(directory, repo:@repo, revision:@revision, dir:@dir)
+      raise NoDirectoryError unless Dir.exist?(directory)
       local_files = Dir.glob("#{directory}/*").map { |f| File.basename f }
       remote_path = build_path(dir, directory)
       remote_files = get_contents(repo, remote_path, revision).map(&:name)
