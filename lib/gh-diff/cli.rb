@@ -149,6 +149,17 @@ module GhDiff
         if removed.any?
           puts "\e[33mRemoved files:\e[0m"
           puts removed.map { |f| "  \e[31m" + f + "\e[0m" }
+          if opts[:save]
+            removed.each do |f|
+              path = File.join(dir, f)
+              content = "---\nFile: #{path}\nStatus: file deleted\n---\n"
+              if opts[:ref]
+                content = add_reference(gh, opts[:revision],
+                                            opts[:repo], content)
+              end
+              save(content, opts[:save_dir], path, '.delete')
+            end
+          end
         end
       end
     end
