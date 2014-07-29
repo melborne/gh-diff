@@ -3,7 +3,7 @@ require 'spec_helper'
 describe GhDiff::CLI do
   before(:all) do
     @diff_result = ~<<-EOS
-      Base revision: 3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8[refs/heads/master]
+      base_revision: 3dffa8284f604e4ac87ce6eb4bc8bbaa257da8d8[refs/heads/master]
       --- docs/quickstart.md
       +++ docs/quickstart.md
 
@@ -63,7 +63,7 @@ describe GhDiff::CLI do
                           --ref)
           GhDiff::CLI.start
           expect($stdout.string).to match(/title: Quick-start guide/)
-          expect($stdout.string).to match(/Base revision: 4d8dab.*master/)
+          expect($stdout.string).to match(/base_revision: 4d8dab.*master/)
         end
       end
     end
@@ -159,7 +159,7 @@ describe GhDiff::CLI do
             GhDiff::CLI.start
             path = "diff/bin/gh-diff"
             expect(File.exist? path).to be true
-            expect(File.read path).to match(/Base revision: a8bd616c3/)
+            expect(File.read path).to match(/base_revision: a8bd616c3/)
           end
         end
       end
