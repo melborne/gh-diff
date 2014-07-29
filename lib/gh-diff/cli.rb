@@ -215,7 +215,7 @@ module GhDiff
         end
       end
 
-      def ref_format(ref, head="Base revision:")
+      def ref_format(ref, head="base_revision:")
         "#{head} #{ref[:object][:sha]}[#{ref[:ref]}]\n"
       end
 
