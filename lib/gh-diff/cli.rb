@@ -77,6 +77,7 @@ module GhDiff
 
       ref = gh.ref(opts[:revision], repo:opts[:repo])
 
+      return_flag = 0
       diffs.each do |(f1, f2), diff|
         next if file_not_found?(f1, f2, diff)
         header = "#{ref_format(ref)}--- #{f1}\n+++ #{f2}\n\n"
@@ -88,6 +89,7 @@ module GhDiff
           content = diff.to_s(format)
           unless content.empty?
             save(header + content, opts[:save_dir], f1)
+            return_flag |= 1
           else
             print "\e[32mno Diff on\e[0m #{diff_form}\n"
           end
@@ -100,11 +102,15 @@ module GhDiff
               print header
               print diff.to_s(opts[:format])
             end
+            return_flag |= 1
           else
             print "\e[32mno Diff on\e[0m #{diff_form}\n"
           end
         end
       end
+      # return: 0 - no diff on all files
+      #         1 - diff found on any of files
+      return_flag
     end
 
     desc "dir_diff DIRECTORY", "Print added and removed files in remote repository"
@@ -126,6 +132,7 @@ module GhDiff
 
       gh = init_ghdiff(opts[:repo], opts[:revision], opts[:dir])
       added, removed = gh.dir_diff(dir)
+      return_flag = 0
       if [added, removed].all?(&:empty?)
         puts "\e[33mNothing changed\e[0m"
       else
@@ -161,7 +168,11 @@ module GhDiff
             end
           end
         end
+        return_flag |= 1
       end
+      # return: 0 - nothing changed
+      #         1 - file added or removed
+      return_flag
     rescue GhDiff::NoDirectoryError
       puts "Directory not found: `#{dir}`"
       exit(1)

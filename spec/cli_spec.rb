@@ -75,8 +75,9 @@ describe GhDiff::CLI do
         ARGV.replace %w(diff docs/quickstart.md
                         --repo=jekyll/jekyll --dir=site
                         --name_only=false)
-        GhDiff::CLI.start
+        flag = GhDiff::CLI.start
         expect($stdout.string).to eq @diff_result
+        expect(flag).to eq 1
       end
     end
 
@@ -120,8 +121,9 @@ describe GhDiff::CLI do
       VCR.use_cassette('dir') do
         ARGV.replace %w(dir_diff docs
                         --repo=jekyll/jekyll --dir=site)
-        GhDiff::CLI.start
+        flag = GhDiff::CLI.start
         expect($stdout.string).to match(/New files:.*collections.md/m)
+        expect(flag).to eq 1
       end
     end
 
