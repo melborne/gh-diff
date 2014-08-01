@@ -27,7 +27,7 @@ describe GhDiff::CLI do
   end
 
   after do
-    $stdout, $stderr = STDIN, STDERR
+    $stdout, $stderr = STDOUT, STDERR
     FileUtils.rm_r(@save_dir) if Dir.exist?(@save_dir)
   end
 
